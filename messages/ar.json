@@ -439,7 +439,14 @@
         "cod": "الدفع عند الاستلام"
       }
     },
-    "copyright": "© {year} {name}. جميع الحقوق محفوظة."
+    "copyright": "© {year} {name}. جميع الحقوق محفوظة.",
+    "supportTitle": "نحن دائماً جاهزون لمساعدتك",
+    "supportDesc": "تواصل معنا من خلال أي من قنوات الدعم التالية:",
+    "supportMobile": "الدعم عبر الجوال",
+    "supportEmail": "الدعم عبر البريد الإلكتروني",
+    "supportCenter": "مركز المساعدة",
+    "supportTech": "الدعم الفني",
+    "contactUs": "تواصل معنا"
   },
   "account": {
     "title": "إعدادات الحساب",

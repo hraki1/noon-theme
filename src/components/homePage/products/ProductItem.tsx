@@ -36,6 +36,8 @@ const ProductItem = ({
     : null;
 
   const handleAddToCart = (e: React.MouseEvent) => {
+
+    console.log(product)
     e.preventDefault();
     if (isAuthenticated) {
       addToCart(product.id, 1);
@@ -147,11 +149,10 @@ const ProductItem = ({
               }
             >
               <FiHeart
-                className={`w-4 h-4 ${
-                  isLiked
+                className={`w-4 h-4 ${isLiked
                     ? "fill-red-500 text-red-500"
                     : "text-gray-400 hover:text-gray-600"
-                }`}
+                  }`}
               />
             </motion.button>
           </div>
@@ -172,9 +173,8 @@ const ProductItem = ({
               <motion.button
                 onClick={handleAddToCart}
                 whileTap={{ scale: 0.9 }}
-                className={`p-2 bg-gray-900 text-white rounded-full hover:bg-gray-700 transition-all ${
-                  isLoadingAddToCart ? "opacity-70 cursor-not-allowed" : ""
-                }`}
+                className={`p-2 bg-gray-900 text-white rounded-full hover:bg-gray-700 transition-all ${isLoadingAddToCart ? "opacity-70 cursor-not-allowed" : ""
+                  }`}
                 disabled={isLoadingAddToCart}
                 aria-label={t("ariaLabels.addToCart")}
               >

@@ -43,6 +43,7 @@ export type Cart = {
   shipping_method_name: string | null;
   shipping_zone_id: number | null;
   shipping_address_id: number | null;
+  shipping_fee_incl_tax_with_discount: number | null;
   payment_method: string | null;
   payment_method_name: string | null;
   billing_address_id: number | null;
@@ -204,7 +205,7 @@ const CartContextProvider: React.FC<CartContextProviderProps> = ({
       discount: cart.discount_amount,
       coupon: cart.coupon,
       tax: cart.tax_amount,
-      shippingFee: cart.shipping_fee_incl_tax,
+      shippingFee: cart.shipping_fee_incl_tax_with_discount,
     });
     setCartError(null);
   }, []);

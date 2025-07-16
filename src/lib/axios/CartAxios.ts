@@ -14,6 +14,7 @@ export interface CartResponse {
   coupon: string | null;
   shipping_fee_excl_tax: number | null;
   shipping_fee_incl_tax: number | null;
+  shipping_fee_incl_tax_with_discount: number | null;
   discount_amount: number | null;
   sub_total: number;
   sub_total_incl_tax: number;

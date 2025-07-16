@@ -436,6 +436,13 @@
         "cod": "Cash on Delivery"
       }
     },
+    "supportTitle": "We are always ready to help you",
+    "supportDesc": "Contact us through any of the following support channels:",
+    "supportMobile": "Mobile support",
+    "supportEmail": "Email support",
+    "supportCenter": "Help center",
+    "supportTech": "Technical support",
+    "contactUs": "Contact us",
     "copyright": "© {year} {name}. All rights reserved."
   },
 

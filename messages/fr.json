@@ -990,5 +990,12 @@
         }
       }
     }
-  }
+  },
+  "supportTitle": "Nous sommes toujours prêts à vous aider",
+  "supportDesc": "Contactez-nous via l'un des canaux d'assistance suivants :",
+  "supportMobile": "Assistance mobile",
+  "supportEmail": "Assistance par e-mail",
+  "supportCenter": "Centre d'aide",
+  "supportTech": "Support technique",
+  "contactUs": "Contactez-nous"
 }

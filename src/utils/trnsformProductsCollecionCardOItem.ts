@@ -7,7 +7,7 @@ export function transformProductToCollectionCartItem(
   const product = productCollection.product;
 
   return {
-    id: productCollection.product_id,
+    id: productCollection.product.product_id,
     name: product.description.name,
     image: product.images?.[0]?.origin_image || "",
     url_key: product.description.url_key, // Basic slug from SKU

@@ -18,6 +18,7 @@ interface ProductInventory {
 
 // Product interface
 interface Product {
+  product_id: number;
   price: number;
   old_price: number | null;
   sku: string;

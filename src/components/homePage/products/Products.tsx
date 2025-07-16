@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { ProductsResponse } from "@/lib/models/productsModal";
@@ -15,15 +15,18 @@ const ITEMS_PER_PAGE = 10;
 
 export default function Products() {
   const t = useTranslations("Products");
+
   const [likedProducts, setLikedProducts] = useState<number[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [allProducts, setAllProducts] = useState<FrontEndProductCartItem[]>([]);
   const [hasMore, setHasMore] = useState(true);
 
-  const { data, isLoading, isError, refetch } = useQuery<
-    ProductsResponse,
-    Error
-  >({
+  useEffect(() => {
+    setAllProducts([]);
+    setCurrentPage(1);
+  }, []);
+
+  const { data, isLoading, isError, refetch } = useQuery<ProductsResponse, Error>({
     queryKey: ["products", currentPage],
     queryFn: ({ signal }) =>
       getProducts(
@@ -37,13 +40,19 @@ export default function Products() {
 
   useEffect(() => {
     if (data) {
-      const newProducts = data.data.map(
-        transformProductCartItem
-      ) as FrontEndProductCartItem[];
+      const newProducts = (data as ProductsResponse).data.map(transformProductCartItem);
       setAllProducts((prev) => [...prev, ...newProducts]);
-      setHasMore(currentPage < (data.totalPages || 1));
+      setHasMore(currentPage < ((data as ProductsResponse).totalPages || 1));
     }
-  }, [data, currentPage]);
+  }, [data]);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("wishlist");
+    if (stored) {
+      const wishlist: FrontEndProductCartItem[] = JSON.parse(stored);
+      setLikedProducts(wishlist.map((p) => p.id));
+    }
+  }, []);
 
   const toggleLike = (product: FrontEndProductCartItem) => {
     const stored = localStorage.getItem("wishlist");
@@ -63,6 +72,25 @@ export default function Products() {
         : [...prev, product.id]
     );
   };
+
+  // Infinity Scroll Observer
+  const observer = useRef<IntersectionObserver | null>(null);
+
+  const lastProductRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      if (isLoading) return;
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          setCurrentPage((prev) => prev + 1);
+        }
+      });
+
+      if (node) observer.current.observe(node);
+    },
+    [isLoading, hasMore]
+  );
 
   if (isLoading && currentPage === 1) {
     return (
@@ -95,7 +123,7 @@ export default function Products() {
   }
 
   return (
-    <div className="py-5 mt-4 px-4 md:px-8 lg:px-12 bg-white lg:mx-10 min-h-screen ">
+    <div className="py-5 mt-4 px-4 md:px-8 lg:px-12 bg-white lg:mx-10 min-h-screen">
       {/* Header */}
       <motion.header
         initial={{ opacity: 0 }}
@@ -108,7 +136,7 @@ export default function Products() {
         <p className="text-gray-600 mt-2 text-center">
           {t("header.count", {
             shown: allProducts.length,
-            total: data?.total || 0,
+            total: (data as ProductsResponse)?.total || 0,
           })}
         </p>
       </motion.header>
@@ -120,43 +148,31 @@ export default function Products() {
           animate="visible"
           className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 justify-items-center md:justify-items-start gap-4"
         >
-          {allProducts.map(
-            (product: FrontEndProductCartItem, index: number) => (
-              <ProductItem
-                key={index}
-                product={product}
-                toggleLike={toggleLike}
-                likedProducts={likedProducts}
-              />
-            )
-          )}
+          {allProducts.map((product, index) => {
+            const isLast = index === allProducts.length - 1;
+            return (
+              <div
+                key={product.id}
+                ref={isLast ? lastProductRef : null}
+                className="w-full h-full flex" // Add these classes
+                style={{ minWidth: 0 }}
+              >
+                <ProductItem
+                  product={product}
+                  toggleLike={toggleLike}
+                  likedProducts={likedProducts}
+                />
+              </div>
+            );
+          })}
         </motion.div>
       </div>
 
-      {/* Loading spinner when loading more */}
+      {/* Spinner when loading next page */}
       {isLoading && currentPage > 1 && (
         <div className="flex justify-center py-6 pb-20">
           <Spinner />
         </div>
-      )}
-
-      {/* View More Button */}
-      {hasMore && !isLoading && (
-        <motion.div
-          className="mt-6 sm:mt-12 text-center pb-12"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-        >
-          <motion.button
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            className="px-8 py-3 mb-8 bg-gradient-to-r from-[#219EBC] to-[#2EC4B6] text-white rounded-full font-medium transition"
-            onClick={() => setCurrentPage((prev) => prev + 1)}
-          >
-            {t("viewMore")}
-          </motion.button>
-        </motion.div>
       )}
     </div>
   );

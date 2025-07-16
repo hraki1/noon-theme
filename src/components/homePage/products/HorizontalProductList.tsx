@@ -82,6 +82,8 @@ export default function HorizontalProductList({
     };
   }, [products, isRTL]);
 
+  if (!products || products.length === 0) return null;
+
   const scroll = (direction: "left" | "right") => {
     if (!scrollRef.current) return;
 
@@ -202,9 +204,9 @@ export default function HorizontalProductList({
             direction: isRTL ? "rtl" : "ltr",
           }}
         >
-          {products.map((product) => (
+          {products.map((product, idx) => (
             <motion.div
-              key={product.id}
+              key={`${product.id}-${idx}`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
