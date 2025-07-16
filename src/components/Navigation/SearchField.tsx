@@ -113,11 +113,7 @@ export default function SearchField() {
 
       {/* Expanded Results Dropdown */}
       {isFocused && (results.length > 0 || searchTerm) && (
-        <div
-          className={`absolute z-50 mt-2 w-[calc(100%+200px)] ${
-            isRtl ? "-right-[92px]" : "-left-[92px]"
-          } bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden animate-fadeIn`}
-        >
+        <div className="absolute z-50 mt-2 w-[calc(100%+200px)] -left-[110px] bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden animate-fadeIn">
           {isLoading ? (
             <div className="p-4 flex justify-center">
               <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
