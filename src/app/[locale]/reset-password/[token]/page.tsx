@@ -1,3 +1,5 @@
+'use client'
+
 import { use, useContext, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FiLock, FiArrowRight } from "react-icons/fi";
@@ -199,18 +201,16 @@ const ResetPasswordPage = ({ params }: ResetPasswordProps) => {
                     {passwordRequirements.map((req, i) => (
                       <li key={i} className="flex items-center">
                         <span
-                          className={`inline-block w-1.5 h-1.5 rounded-full mr-2 ${
-                            req.test(password) ? "bg-green-500" : "bg-gray-300"
-                          }`}
+                          className={`inline-block w-1.5 h-1.5 rounded-full mr-2 ${req.test(password) ? "bg-green-500" : "bg-gray-300"
+                            }`}
                         ></span>
                         {req.label}
                       </li>
                     ))}
                     <li className="flex items-center">
                       <span
-                        className={`inline-block w-1.5 h-1.5 rounded-full mr-2 ${
-                          passwordsMatch ? "bg-green-500" : "bg-gray-300"
-                        }`}
+                        className={`inline-block w-1.5 h-1.5 rounded-full mr-2 ${passwordsMatch ? "bg-green-500" : "bg-gray-300"
+                          }`}
                       ></span>
                       {t("requirements.match")}
                     </li>
@@ -221,11 +221,10 @@ const ResetPasswordPage = ({ params }: ResetPasswordProps) => {
                   whileTap={{ scale: 0.98 }}
                   type="submit"
                   disabled={isPendingRestpassword}
-                  className={`w-full mt-6 px-6 py-3 rounded-lg font-medium flex items-center justify-center transition-colors ${
-                    isPendingRestpassword
+                  className={`w-full mt-6 px-6 py-3 rounded-lg font-medium flex items-center justify-center transition-colors ${isPendingRestpassword
                       ? "bg-gray-300 cursor-not-allowed"
                       : "pr-bg text-white"
-                  }`}
+                    }`}
                 >
                   {isPendingRestpassword ? (
                     <>
