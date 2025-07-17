@@ -3,13 +3,16 @@ import { useQuery } from "@tanstack/react-query";
 import { getBrands } from "@/lib/axios/brandsAxios";
 import Spinner from "@/components/UI/SpinnerLoading";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
+import { useRouter } from "next/navigation";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 const SCROLL_AMOUNT = 300;
 
 const BrandsSection: React.FC = () => {
   const t = useTranslations("brandsSection");
+  const locale = useLocale();
+  const router = useRouter();
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["brands"],
     queryFn: getBrands,
@@ -41,6 +44,10 @@ const BrandsSection: React.FC = () => {
 
   const scrollBy = (amount: number) => {
     scrollRef.current?.scrollBy({ left: amount, behavior: "smooth" });
+  };
+
+  const handleBrandClick = (brandId: number) => {
+    router.push(`/${locale}/shopGrid?brandid=${brandId}`);
   };
 
   if (isLoading) {
@@ -100,6 +107,7 @@ const BrandsSection: React.FC = () => {
           {data.data.map((brand, idx) => (
             <div
               key={brand.id}
+              onClick={() => handleBrandClick(brand.id)}
               className="flex flex-col items-center min-w-[120px] bg-white rounded-xl shadow-lg border border-gray-100 p-4 snap-start cursor-pointer group transition-transform duration-300 opacity-0 animate-fadeIn"
               style={{ animationDelay: `${idx * 60}ms` }}
             >
@@ -122,12 +130,4 @@ const BrandsSection: React.FC = () => {
 };
 
 export default BrandsSection;
-
-// Add this animation to your global CSS if not present:
-// @keyframes fadeIn { from { opacity: 0; transform: translateY(20px);} to { opacity: 1; transform: none; } }
-// .animate-fadeIn { animation: fadeIn 0.7s cubic-bezier(0.4,0,0.2,1) forwards; }
-
-// Hide scrollbar utility (TailwindCSS):
-// Add to your global CSS if not present:
-// .scrollbar-hide::-webkit-scrollbar { display: none; }
-// .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; } 
+ 
