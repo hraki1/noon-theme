@@ -115,32 +115,34 @@ export default async function RootLayout({
   return (
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
       <body className={`${dosis.variable} ${nunito.variable} antialiased`}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <SettingsProvider settings={settings}>
-            <CurrencyProvider
-              defaultSettingCurrrency={baseSystemCurrency}
-              userIpCurrency={userIpCurrency}
-            >
-              <QueryClientProvider client={queryClient}>
-                <AuthModalProvider>
-                  <SearchProvider>
-                    <AuthProvider>
-                      <CartContextProvider>
-                        <Toaster />
-                        <div id="root-modal"></div>
-                        <ClientLayoutPart />
-                        {/* <TopHeader /> */}
-                        <Navbar />
-                        {children}
-                        <Footer />
-                      </CartContextProvider>
-                    </AuthProvider>
-                  </SearchProvider>
-                </AuthModalProvider>
-              </QueryClientProvider>
-            </CurrencyProvider>
-          </SettingsProvider>
-        </NextIntlClientProvider>
+        <div className="bg-white">
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <SettingsProvider settings={settings}>
+              <CurrencyProvider
+                defaultSettingCurrrency={baseSystemCurrency}
+                userIpCurrency={userIpCurrency}
+              >
+                <QueryClientProvider client={queryClient}>
+                  <AuthModalProvider>
+                    <SearchProvider>
+                      <AuthProvider>
+                        <CartContextProvider>
+                          <Toaster />
+                          <div id="root-modal"></div>
+                          <ClientLayoutPart />
+                          {/* <TopHeader /> */}
+                          <Navbar />
+                          {children}
+                          <Footer />
+                        </CartContextProvider>
+                      </AuthProvider>
+                    </SearchProvider>
+                  </AuthModalProvider>
+                </QueryClientProvider>
+              </CurrencyProvider>
+            </SettingsProvider>
+          </NextIntlClientProvider>
+        </div>
       </body>
     </html>
   );
