@@ -15,7 +15,7 @@ import type { Order as OrderType } from "@/lib/models/orderModal";
 import Order from "@/components/orders/Order";
 import { useTranslations } from "next-intl";
 
-type OrderStatus = "processing" | "shipped" | "delivered" | "cancelled";
+type OrderStatus = "processing" | "shipped" | "delivered" | "cancelled" | "pending" | "completed";
 
 export default function OrdersPage() {
   const t = useTranslations("orders");
@@ -44,6 +44,10 @@ export default function OrdersPage() {
     switch (status) {
       case "processing":
         return <FiClock className="text-yellow-500" />;
+      case "pending":
+        return <FiClock className="text-gray-500" />;
+      case "completed":
+        return <FiCheckCircle className="text-green-600" />;
       case "shipped":
         return <FiTruck className="text-blue-500" />;
       case "delivered":
@@ -57,6 +61,10 @@ export default function OrdersPage() {
     switch (status) {
       case "processing":
         return "bg-yellow-100 text-yellow-800";
+      case "pending":
+        return "bg-gray-100 text-gray-800";
+      case "completed":
+        return "bg-green-100 text-green-800";
       case "shipped":
         return "bg-blue-100 text-blue-800";
       case "delivered":
@@ -128,6 +136,28 @@ export default function OrdersPage() {
             >
               <FiClock size={14} />
               {t("tabs.processing")}
+            </button>
+            <button
+              onClick={() => setActiveTab("pending")}
+              className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap flex items-center gap-1 ${
+                activeTab === "pending"
+                  ? "bg-gray-100 text-gray-800"
+                  : "bg-white text-gray-700 hover:bg-gray-100"
+              }`}
+            >
+              <FiClock size={14} />
+              {t("tabs.pending")}
+            </button>
+            <button
+              onClick={() => setActiveTab("completed")}
+              className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap flex items-center gap-1 ${
+                activeTab === "completed"
+                  ? "bg-green-100 text-green-800"
+                  : "bg-white text-gray-700 hover:bg-gray-100"
+              }`}
+            >
+              <FiCheckCircle size={14} />
+              {t("tabs.completed")}
             </button>
             <button
               onClick={() => setActiveTab("shipped")}

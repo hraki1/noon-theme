@@ -59,10 +59,5 @@ export async function generateMetadata({
         ar: `${process.env.NEXT_PUBLIC_SITE_URL}/ar`,
       },
     },
-    themeColor: "#feee00",
-    appleWebApp: {
-      capable: true,
-      statusBarStyle: "black-translucent",
-    },
-  };
+};
 }

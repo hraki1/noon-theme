@@ -577,7 +577,10 @@
       "all": "Toutes les Commandes",
       "processing": "En Cours",
       "shipped": "Expédiées",
-      "delivered": "Livrées"
+      "delivered": "Livrées",
+      "cancelled": "Annulées",
+      "pending": "En attente",
+      "completed": "Terminé"
     },
     "empty": {
       "title": "Aucune commande trouvée",

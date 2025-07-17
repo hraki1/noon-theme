@@ -11,6 +11,8 @@ html{
 
 body {
   font-family: var(--font-nunito), 'Nunito', 'Helvetica Neue', Arial, sans-serif;
+  background-color:white;
+
 }
 
 input:focus {

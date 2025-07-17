@@ -585,7 +585,10 @@
       "all": "كل الطلبات",
       "processing": "قيد المعالجة",
       "shipped": "تم الشحن",
-      "delivered": "تم التوصيل"
+      "delivered": "تم التوصيل",
+      "cancelled": "أُلغيت",
+      "pending": "قيد الانتظار",
+      "completed": "مكتمل"
     },
     "empty": {
       "title": "لم يتم العثور على طلبات",

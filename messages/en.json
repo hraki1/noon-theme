@@ -584,7 +584,9 @@
       "all": "All Orders",
       "processing": "Processing",
       "shipped": "Shipped",
-      "delivered": "Delivered"
+      "delivered": "Delivered",
+      "pending": "Pending",
+      "completed": "Completed"
     },
     "empty": {
       "title": "No orders found",
@@ -622,7 +624,9 @@
         "processing": "Processing",
         "shipped": "Shipped",
         "delivered": "Delivered",
-        "cancelled": "Cancelled"
+        "cancelled": "Cancelled",
+        "pending": "Pending",
+        "completed": "Completed"
       }
     }
   },

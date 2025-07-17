@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { usePathname, useRouter } from "next/navigation";
 import { getLanguages } from "@/lib/axios/languagesAxios";
 import { useLocale } from "next-intl";
+import Spinner from "../UI/SpinnerLoading";
 
 export default function Language() {
   const [isOpen, setIsOpen] = useState(false);
@@ -61,9 +62,7 @@ export default function Language() {
     router.push(newPathname);
   };
 
-  if (isLoading) {
-    return <p>Loading ....</p>;
-  }
+  if (isLoading) return <Spinner />;
 
   if (error) {
     return <p className="py-10">{(error as Error).message}</p>;
