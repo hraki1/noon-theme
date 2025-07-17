@@ -13,6 +13,10 @@ export default function CategoriesList() {
 
   return (
     <section className="py-2 md:py-16 text-center pt-10 mb-4 lg:mx-10 relative bg-white">
+      <h2 className="text-3xl md:text-4xl font-extrabold mb-8 text-center tracking-widest text-gray-900 relative">
+        {t("title")}
+        <span className="block mx-auto mt-2 w-16 h-1 rounded bg-[#feee00]"></span>
+      </h2>
       <div className="container mx-auto">
         {!categories && (
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-5 gap-6">
@@ -28,7 +32,7 @@ export default function CategoriesList() {
                   key={index}
                   className="flex flex-col items-center text-center group w-24 sm:w-28 md:w-auto"
                 >
-                  <div className="w-[78px] h-[78px] sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-[#fff] group-hover:scale-105 transition-transform duration-300">
+                  <div className="w-[72px] h-[72px] sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-[#fff] group-hover:scale-105 transition-transform duration-300">
                     <Image
                       src={cat.description.image ?? "/image/products/img.png"}
                       alt={cat.description.name}

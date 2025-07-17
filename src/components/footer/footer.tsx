@@ -61,42 +61,45 @@ export default function Footer() {
 
             <div className="flex flex-col md:flex-row gap-8 justify-center items-center w-full lg:w-auto">
 
+              <div className="flex flex-col gap-3">
 
-              <div className="w-full lg:w-auto">
-                <div className="flex items-center justify-center gap-4">
-                  <div className="w-10 h-10 bg-white rounded-full flex justify-center items-center shadow-sm">
-                    <FiPhone className="text-lg" />
+                <div className="w-full lg:w-auto">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 bg-white rounded-full flex justify-center items-center shadow-sm">
+                      <FiPhone className="text-lg" />
+                    </div>
+                    <div>
+                      <p className="text-gray-500 text-sm capitalize">{t("supportMobile")}</p>
+                      <p className="font-bold text-gray-800 text-nowrap">{settings.contact_phone}</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-gray-500 text-sm capitalize">{t("supportMobile")}</p>
-                    <p className="font-bold text-gray-800 text-nowrap">{settings.contact_phone}</p>
+                </div>
+
+                <div className="w-full lg:w-auto">
+                  <div className="flex items-center justify-center gap-4">
+                    <div className="w-10 h-10 bg-white rounded-full flex justify-center items-center shadow-sm">
+                      <FiMail className="text-lg" />
+                    </div>
+                    <div>
+                      <p className="text-gray-500 text-sm capitalize">{t("supportEmail")}</p>
+                      <p className="font-bold text-gray-800">{settings.contact_email}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="w-full lg:w-auto">
+                  <div className="flex items-center gap-4 justify-center">
+                    <div className="w-10 h-10 bg-white rounded-full flex justify-center items-center shadow-sm">
+                      <FiHelpCircle className="text-lg" />
+                    </div>
+                    <div>
+                      <p className="text-gray-500 text-sm capitalize">{t("supportCenter")}</p>
+                      <p className="font-bold text-gray-800">{settings.contact_email}</p>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div className="w-full lg:w-auto">
-                <div className="flex items-center justify-center gap-4">
-                  <div className="w-10 h-10 bg-white rounded-full flex justify-center items-center shadow-sm">
-                    <FiMail className="text-lg" />
-                  </div>
-                  <div>
-                    <p className="text-gray-500 text-sm capitalize">{t("supportEmail")}</p>
-                    <p className="font-bold text-gray-800">{settings.contact_email}</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="w-full lg:w-auto">
-                <div className="flex items-center gap-4 justify-center">
-                  <div className="w-10 h-10 bg-white rounded-full flex justify-center items-center shadow-sm">
-                    <FiHelpCircle className="text-lg" />
-                  </div>
-                  <div>
-                    <p className="text-gray-500 text-sm capitalize">{t("supportCenter")}</p>
-                    <p className="font-bold text-gray-800">{settings.contact_email}</p>
-                  </div>
-                </div>
-              </div>
 
 
 

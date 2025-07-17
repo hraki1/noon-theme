@@ -67,8 +67,8 @@ const Carousel: React.FC<CarouselProps> = ({ collections }) => {
             nextEl: ".custom-swiper-next",
             prevEl: ".custom-swiper-prev",
           }}
-          className="rounded shadow-2xl"
-          style={{ height: "420px" }}
+          className="h-[250px] md:h-[420px] rounded shadow-2xl"
+          // style={{ height: "420px" }}
         >
           {/* Parallax background layer */}
           <div
@@ -80,7 +80,7 @@ const Carousel: React.FC<CarouselProps> = ({ collections }) => {
 
           {imagesToDisplay.map((collection, idx) => (
             <SwiperSlide key={collection.collection_id || idx}>
-              <div className="relative w-full h-[420px] flex items-center justify-center cursor-pointer select-none" onClick={() => router.push(`/shopGrid?collectionId=${collection.collection_id}`)}>
+              <div className="relative w-full h-[250px] md:h-[420px] flex items-center justify-center cursor-pointer select-none" onClick={() => router.push(`/shopGrid?collectionId=${collection.collection_id}`)}>
                 {/* Parallax image */}
                 <div className="absolute inset-0 z-10" data-swiper-parallax="0">
                   <Image

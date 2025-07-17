@@ -142,7 +142,7 @@ export default function Products() {
       </motion.header>
 
       {/* Product Grid */}
-      <div className="px-4 py-6">
+      <div className="px-2 py-6">
         <motion.div
           initial="hidden"
           animate="visible"

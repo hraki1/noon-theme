@@ -150,8 +150,8 @@ const ProductItem = ({
             >
               <FiHeart
                 className={`w-4 h-4 ${isLiked
-                    ? "fill-red-500 text-red-500"
-                    : "text-gray-400 hover:text-gray-600"
+                  ? "fill-red-500 text-red-500"
+                  : "text-gray-400 hover:text-gray-600"
                   }`}
               />
             </motion.button>
