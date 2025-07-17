@@ -32,6 +32,15 @@ input:focus {
   scrollbar-width: none;
 }
 
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 .customScroll {
   overflow-x: auto;
   padding-bottom: 1rem;
@@ -78,4 +87,12 @@ input:focus {
 /* لما المستخدم يضغط على السكروول */
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(180deg, #00aaff, #0055aa);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: none; }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.7s cubic-bezier(0.4,0,0.2,1) forwards;
 }

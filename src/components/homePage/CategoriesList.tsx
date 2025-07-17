@@ -36,7 +36,7 @@ export default function CategoriesList() {
   }
 
   return (
-    <section className="py-2 md:py-5 text-center pt-10 mb-4 lg:mx-10 relative bg-white">
+    <section className="py-2 md:py-16 text-center pt-10 mb-4 lg:mx-10 relative bg-white">
       <div className="container mx-auto">
         {!categories?.data && (
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-5 gap-6">

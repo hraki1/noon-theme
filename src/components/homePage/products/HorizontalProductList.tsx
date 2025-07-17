@@ -210,7 +210,7 @@ export default function HorizontalProductList({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
-              className="flex-shrink-0 w-[240px]"
+              className="flex-shrink-0"
             >
               <ProductItem
                 product={product}

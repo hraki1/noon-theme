@@ -991,5 +991,10 @@
         }
       }
     }
+  },
+  "brandsSection": {
+    "brands": "Brands",
+    "noBrands": "No Brands available",
+    "retry": "Retry"
   }
 }

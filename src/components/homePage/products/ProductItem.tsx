@@ -69,7 +69,7 @@ const ProductItem = ({
         animate={{ opacity: 1, y: 0 }}
         whileHover={{ y: -5 }}
         transition={{ type: "spring", stiffness: 300 }}
-        className="relative w-full bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col h-full"
+        className="w-52 relative bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col h-full"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >

@@ -997,5 +997,10 @@
   "supportEmail": "Assistance par e-mail",
   "supportCenter": "Centre d'aide",
   "supportTech": "Support technique",
-  "contactUs": "Contactez-nous"
+  "contactUs": "Contactez-nous",
+  "brandsSection": {
+    "brands": "Marques",
+    "noBrands": "Aucune marque disponible",
+    "retry": "Réessayer"
+  }
 }

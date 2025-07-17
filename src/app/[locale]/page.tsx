@@ -8,6 +8,7 @@ import ModernHelpButton from "@/components/shared/HelpButton";
 import Spinner from "@/components/UI/SpinnerLoading";
 import { getCollections } from "@/lib/axios/collectionsAxios";
 import { useQuery } from "@tanstack/react-query";
+import BrandsSection from "@/components/homePage/BrandsSection";
 
 export default function Home() {
   const { data, isLoading, error, refetch } = useQuery({
@@ -69,6 +70,7 @@ export default function Home() {
     <div className="bg-[#f7f7fa]">
       <Carousel collections={banners} />
       <CategoriesList />
+      <BrandsSection />
       {data?.collections?.length === 0 ? (
         <div className="text-center py-10">
           <p>No Collection available</p>

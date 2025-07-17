@@ -68,9 +68,11 @@ export default function Footer() {
               <p className="max-w-md text-gray-600">{t("supportDesc")}</p>
             </div>
 
-            <div className="flex flex-col md:flex-row gap-8 justify-between w-full lg:w-auto">
+            <div className="flex flex-col md:flex-row gap-8 justify-center items-center w-full lg:w-auto">
+
+
               <div className="w-full lg:w-auto">
-                <div className="flex items-center gap-4">
+                <div className="flex items-center justify-center gap-4">
                   <div className="w-10 h-10 bg-white rounded-full flex justify-center items-center shadow-sm">
                     <FiPhone className="text-lg" />
                   </div>
@@ -82,7 +84,7 @@ export default function Footer() {
               </div>
 
               <div className="w-full lg:w-auto">
-                <div className="flex items-center gap-4">
+                <div className="flex items-center justify-center gap-4">
                   <div className="w-10 h-10 bg-white rounded-full flex justify-center items-center shadow-sm">
                     <FiMail className="text-lg" />
                   </div>
@@ -94,7 +96,7 @@ export default function Footer() {
               </div>
 
               <div className="w-full lg:w-auto">
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4 justify-center">
                   <div className="w-10 h-10 bg-white rounded-full flex justify-center items-center shadow-sm">
                     <FiHelpCircle className="text-lg" />
                   </div>
@@ -104,6 +106,9 @@ export default function Footer() {
                   </div>
                 </div>
               </div>
+
+
+
             </div>
           </div>
         </div>
@@ -115,7 +120,7 @@ export default function Footer() {
 
 
           {/* categories lists */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-12">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-12 text-center">
 
             {/* quick links */}
             <div>
