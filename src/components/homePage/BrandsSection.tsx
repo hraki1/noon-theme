@@ -83,7 +83,7 @@ const BrandsSection: React.FC = () => {
           className="hidden md:flex absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-white/80 hover:bg-white shadow-lg rounded-full p-2 border border-gray-200 transition"
           onClick={() => scrollBy(-SCROLL_AMOUNT)}
         >
-          <FiChevronLeft size={28} />
+          <FiChevronLeft className="h-5 w-5 text-gray-800" />
         </button>
       )}
       {canScrollRight && (
@@ -92,7 +92,7 @@ const BrandsSection: React.FC = () => {
           className="hidden md:flex absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-white/80 hover:bg-white shadow-lg rounded-full p-2 border border-gray-200 transition"
           onClick={() => scrollBy(SCROLL_AMOUNT)}
         >
-          <FiChevronRight size={28} />
+          <FiChevronRight className="h-5 w-5 text-gray-800" />
         </button>
       )}
       <div ref={scrollRef} className="overflow-x-auto scrollbar-hide px-2 md:px-8 relative">

@@ -197,7 +197,7 @@ export default function HorizontalProductList({
         {/* Product List */}
         <div
           ref={scrollRef}
-          className="flex overflow-x-auto scroll-smooth gap-3 py-2 scrollbar-hide"
+          className="flex overflow-x-auto scroll-smooth gap-3 py-2 px-3 scrollbar-hide"
           style={{
             scrollbarWidth: "none",
             msOverflowStyle: "none",
@@ -210,7 +210,7 @@ export default function HorizontalProductList({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
-              className="flex-shrink-0 px-3"
+              className="flex-shrink-0"
             >
               <ProductItem
                 product={product}
