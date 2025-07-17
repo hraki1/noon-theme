@@ -123,7 +123,7 @@ export default function Products() {
   }
 
   return (
-    <div className="py-5 mt-4 px-4 md:px-8 lg:px-12 bg-white lg:mx-10 min-h-screen">
+    <div className="pt-5  px-4 md:px-8 lg:px-12 bg-white lg:mx-10 min-h-screen">
       {/* Header */}
       <motion.header
         initial={{ opacity: 0 }}

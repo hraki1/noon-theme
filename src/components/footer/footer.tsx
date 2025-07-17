@@ -60,7 +60,7 @@ export default function Footer() {
   return (
     <footer className="bg-white text-black">
       {/* Email & Phone Section */}
-      <div className="bg-[#f3f4f8] mt-8 md:px-8 lg:px-12 py-12 px-6 border-y border-gray-300">
+      <div className="bg-[#f3f4f8]  md:px-8 lg:px-12 py-12 px-6 border-y border-gray-300">
         <div className="container mx-auto max-w-6xl">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
             <div className="text-center lg:text-left">

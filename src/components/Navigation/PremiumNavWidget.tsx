@@ -16,6 +16,7 @@ import { AuthContext } from "@/store/AuthContext";
 import { AuthModalContext } from "@/store/AuthModalContext";
 import CurrencySelector from "./CurrencySelector";
 import { MdMenu } from "react-icons/md";
+import Spinner from "../UI/SpinnerLoading";
 // import CurrencySelector from "./CurrencySelector";
 
 interface Group {
@@ -105,7 +106,7 @@ export default function PremiumNavWidget() {
   if (isLoadingBrands || isLoadingCategories) {
     return (
       <div className="my-40 mt-56">
-        <p>Loading...</p>
+        <Spinner />
       </div>
     );
   }

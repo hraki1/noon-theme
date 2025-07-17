@@ -115,7 +115,6 @@ export default async function RootLayout({
   return (
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
       <body className={`${dosis.variable} ${nunito.variable} antialiased`}>
-        <div className="bg-white">
           <NextIntlClientProvider locale={locale} messages={messages}>
             <SettingsProvider settings={settings}>
               <CurrencyProvider
@@ -142,7 +141,6 @@ export default async function RootLayout({
               </CurrencyProvider>
             </SettingsProvider>
           </NextIntlClientProvider>
-        </div>
       </body>
     </html>
   );

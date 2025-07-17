@@ -94,6 +94,27 @@ input:focus {
   background: linear-gradient(180deg, #00aaff, #0055aa);
 }
 
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 12px;
+  background: #f5f5f5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #feee00;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ffe600;
+}
+
+/* For Firefox */
+html {
+  scrollbar-color: #feee00 #f5f5f5;
+  scrollbar-width: thin;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: none; }
