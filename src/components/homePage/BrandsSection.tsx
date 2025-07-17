@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { getBrands } from "@/lib/axios/brandsAxios";
+import { useBrands } from "@/store/BrandsContext";
 import Spinner from "@/components/UI/SpinnerLoading";
 import Image from "next/image";
 import { useTranslations, useLocale } from "next-intl";
@@ -13,10 +12,7 @@ const BrandsSection: React.FC = () => {
   const t = useTranslations("brandsSection");
   const locale = useLocale();
   const router = useRouter();
-  const { data, isLoading, error, refetch } = useQuery({
-    queryKey: ["brands"],
-    queryFn: getBrands,
-  });
+  const { brands, isLoading, error, refetch } = useBrands();
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -40,7 +36,7 @@ const BrandsSection: React.FC = () => {
       el.removeEventListener("scroll", checkScroll);
       window.removeEventListener("resize", checkScroll);
     };
-  }, [data]);
+  }, [brands]);
 
   const scrollBy = (amount: number) => {
     scrollRef.current?.scrollBy({ left: amount, behavior: "smooth" });
@@ -73,7 +69,7 @@ const BrandsSection: React.FC = () => {
     );
   }
 
-  if (!data || !data.data || data.data.length === 0) {
+  if (!brands || brands.length === 0) {
     return null;
   }
 
@@ -104,7 +100,7 @@ const BrandsSection: React.FC = () => {
       )}
       <div ref={scrollRef} className="overflow-x-auto scrollbar-hide px-2 md:px-8 relative">
         <div className="flex gap-3 mb-5 snap-x snap-mandatory">
-          {data.data.map((brand, idx) => (
+          {brands.map((brand, idx) => (
             <div
               key={brand.id}
               onClick={() => handleBrandClick(brand.id)}

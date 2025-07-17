@@ -19,24 +19,15 @@ import {
   // FiRefreshCw,
 } from "react-icons/fi";
 import { useSettings } from "@/store/SettingsContext";
-import { useQuery } from "@tanstack/react-query";
+import { useCategories } from "@/store/CategoriesContext";
 import Spinner from "../UI/SpinnerLoading";
-import { getCategories } from "@/lib/axios/categoryAxios";
 import { MdLocalShipping } from "react-icons/md";
 import { organizeCategories } from "@/utils/organizeCategories";
 
 export default function Footer() {
   const t = useTranslations("footer");
   const settings = useSettings();
-
-  const {
-    data: categories,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["categories"],
-    queryFn: getCategories,
-  });
+  const { categories, isLoading, error } = useCategories();
 
   if (isLoading) {
     return (
@@ -55,7 +46,7 @@ export default function Footer() {
     );
   }
 
-  const displayCategories = organizeCategories(categories?.data || []);
+  const displayCategories = organizeCategories(categories || []);
 
   return (
     <footer className="bg-white text-black">

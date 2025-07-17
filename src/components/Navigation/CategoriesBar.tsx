@@ -1,11 +1,11 @@
 "use client";
-import { getCategories } from "@/lib/axios/categoryAxios";
-import { useQuery } from "@tanstack/react-query";
+import { useCategories } from "@/store/CategoriesContext";
 import Link from "next/link";
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import { useState, useRef, useEffect } from "react";
 import { organizeCategories } from "@/utils/organizeCategories";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 export default function CategoriesBar() {
     const [showLeftArrow, setShowLeftArrow] = useState(false);
@@ -16,10 +16,7 @@ export default function CategoriesBar() {
     const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const isMouseInDropdown = useRef(false);
 
-    const { data: categories, isLoading, error } = useQuery({
-        queryKey: ["categories"],
-        queryFn: getCategories,
-    });
+    const { categories } = useCategories();
 
     // Update arrow visibility on load/resize
     useEffect(() => {
@@ -92,12 +89,12 @@ export default function CategoriesBar() {
         }
     };
 
-    if (isLoading || error || !categories?.data) return null;
+    if (!categories) return null;
 
-    const navCategories = categories.data.filter(cat => cat.include_in_nav);
+    const navCategories = categories.filter(cat => cat.include_in_nav);
     if (navCategories.length === 0) return null;
 
-    const displayCategory = organizeCategories(categories.data);
+    const displayCategory = organizeCategories(categories);
 
     return (
         <div className="relative">
@@ -198,10 +195,12 @@ export default function CategoriesBar() {
                                         >
                                             <div className="w-12 h-12 flex items-center justify-center bg-gray-100 rounded-full overflow-hidden border border-gray-200">
                                                 {sub.description.image ? (
-                                                    <img
+                                                    <Image
                                                         src={sub.description.image}
                                                         alt={sub.description.name}
+                                                        fill
                                                         className="object-cover w-full h-full"
+                                                        sizes="48px"
                                                     />
                                                 ) : (
                                                     <span className="text-gray-400 text-xl font-bold">

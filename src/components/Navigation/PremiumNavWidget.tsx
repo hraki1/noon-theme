@@ -5,11 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FiX, FiChevronRight, FiUser, FiLogIn } from "react-icons/fi";
 import Link from "next/link";
 import { FaRegHeart } from "react-icons/fa";
-import { useQuery } from "@tanstack/react-query";
-import { getBrands } from "@/lib/axios/brandsAxios";
-import { getCategories } from "@/lib/axios/categoryAxios";
-import { Category } from "@/lib/models/categoryModal";
-import { BrandWithProducts } from "@/lib/models/brandsModal";
 import { useTranslations } from "next-intl";
 import Language from "./Languages";
 import { AuthContext } from "@/store/AuthContext";
@@ -17,7 +12,11 @@ import { AuthModalContext } from "@/store/AuthModalContext";
 import CurrencySelector from "./CurrencySelector";
 import { MdMenu } from "react-icons/md";
 import Spinner from "../UI/SpinnerLoading";
-// import CurrencySelector from "./CurrencySelector";
+import { useCategories } from "@/store/CategoriesContext";
+import { useBrands } from "@/store/BrandsContext";
+import { Category } from "@/lib/models/categoryModal";
+import { BrandWithProducts } from "@/lib/models/brandsModal";
+
 
 interface Group {
   name: string;
@@ -34,52 +33,31 @@ export default function PremiumNavWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
-  const {
-    data: brandsData,
-    isLoading: isLoadingBrands,
-    error: errorBrands,
-  } = useQuery({
-    queryKey: ["brands"],
-    queryFn: getBrands,
-  });
 
-  const {
-    data: categoriesData,
-    isLoading: isLoadingCategories,
-    error: errorCategories,
-    refetch,
-  } = useQuery({
-    queryKey: ["categories"],
-    queryFn: getCategories,
-  });
+  const { categories } = useCategories()
+  const { brands, isLoading: isLoadingBrands, error: errorBrands, refetch } = useBrands();
 
 
   useEffect(() => {
-    if (categoriesData && brandsData) {
+    if (categories && brands) {
       const newGroups = [
         {
           name: t("categories"),
-          subcategories: categoriesData.data.map(
-            (cat: Category) => cat.description.name
-          ),
-          ids: categoriesData.data.map((cat: Category) => cat.id),
+          subcategories: categories.map((cat: Category) => cat.description.name),
+          ids: categories.map((cat: Category) => cat.id),
         },
         {
           name: t("brands"),
-          subcategories: brandsData.data.map(
-            (brand: BrandWithProducts) => brand.name
-          ),
-          ids: brandsData.data.map((brand: BrandWithProducts) => brand.id),
+          subcategories: brands.map((brand: BrandWithProducts) => brand.name),
+          ids: brands.map((brand: BrandWithProducts) => brand.id),
         },
-       
       ];
-
       setGroups(newGroups);
     }
-  }, [categoriesData, brandsData, t]);
+  }, [categories, brands, t]);
 
 
-  if (isLoadingBrands || isLoadingCategories) {
+  if (isLoadingBrands) {
     return (
       <div className="my-40 mt-56">
         <Spinner />
@@ -87,22 +65,12 @@ export default function PremiumNavWidget() {
     );
   }
 
-  if (errorBrands || errorCategories) {
+  if (errorBrands) {
     return (
       <div className="text-center py-10">
-        <h3 className="text-red-500">
-          {" "}
-          {errorBrands?.name || errorCategories?.name}
-        </h3>
-        <p className="py-10">
-          {errorBrands?.message || errorCategories?.message}
-        </p>
-        <button
-          onClick={() => refetch()}
-          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
-        >
-          Retry
-        </button>
+        <h3 className="text-red-500">{errorBrands.name}</h3>
+        <p className="py-10">{errorBrands.message}</p>
+        <button onClick={() => refetch()} className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">Retry</button>
       </div>
     );
   }
@@ -119,7 +87,7 @@ export default function PremiumNavWidget() {
       >
         <div className="flex flex-col gap-1.5 items-center relative w-6 h-6">
           {/* Hamburger lines */}
-          <MdMenu   className="text-3xl text-black "/>
+          <MdMenu className="text-3xl text-black " />
 
 
           {/* Cross lines */}

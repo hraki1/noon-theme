@@ -5,7 +5,6 @@ import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { SearchContext } from "@/store/SearchContext";
 import { getProducts, GetProductsParams } from "@/lib/axios/getProductsAxios";
-import { getCategories } from "@/lib/axios/categoryAxios";
 import { getBrands } from "@/lib/axios/brandsAxios";
 import { getCollectionById } from "@/lib/axios/collectionsAxios";
 import { organizeCategories } from "@/utils/organizeCategories";
@@ -19,6 +18,7 @@ import ProductGrid from "@/components/shopGrid/ProductGrid";
 import MobileFiltersModal from "@/components/shopGrid/MobileFiltersModal";
 import { FrontEndProductCartItem } from "@/models/frontEndProductCartItem";
 import HeroHeader from "@/components/shopGrid/HeroHeader ";
+import { useCategories } from "@/store/CategoriesContext";
 
 const MAX_PRICE = 5000;
 
@@ -47,6 +47,7 @@ const ShopGridPage = () => {
 
   const param = useSearchParams();
   const { clearSearchTerm } = useContext(SearchContext);
+  const { categories } = useCategories();
 
   // Pagination state
   const [pagination, setPagination] = useState({
@@ -85,11 +86,6 @@ const ShopGridPage = () => {
     },
   });
 
-  const { data: categoriesData } = useQuery({
-    queryKey: ["categories"],
-    queryFn: getCategories,
-  });
-
   const { data: brandsData } = useQuery({
     queryKey: ["brands"],
     queryFn: getBrands,
@@ -103,9 +99,7 @@ const ShopGridPage = () => {
   });
 
   // Derived state
-  const organizedCategories = categoriesData
-    ? organizeCategories(categoriesData.data)
-    : null;
+  const organizedCategories = categories ? organizeCategories(categories) : null;
   const organizedBrands = brandsData?.data?.map(organizeBrands) || [];
 
   // Update pagination when data changes

@@ -35,11 +35,7 @@ const Carousel: React.FC<CarouselProps> = ({ collections }) => {
       ];
 
   if (collections.length === 0) {
-    return (
-      <div className="text-center py-10">
-        <p>No Banner available</p>
-      </div>
-    );
+    return null
   }
 
   return (
@@ -118,7 +114,7 @@ const Carousel: React.FC<CarouselProps> = ({ collections }) => {
               </div>
             </SwiperSlide>
           ))}
-        
+
         </Swiper>
       </div>
     </div>

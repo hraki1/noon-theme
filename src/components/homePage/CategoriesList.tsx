@@ -1,52 +1,28 @@
 "use client";
 
-import { getCategories } from "@/lib/axios/categoryAxios";
-import { useQuery } from "@tanstack/react-query";
+import { useCategories } from "@/store/CategoriesContext";
 import Image from "next/image";
 import Link from "next/link";
-import Spinner from "../UI/SpinnerLoading";
 import { useTranslations } from "next-intl";
 
 export default function CategoriesList() {
   const t = useTranslations("category");
-  const {
-    data: categories,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["categories"],
-    queryFn: getCategories,
-  });
+  const { categories } = useCategories();
 
-  if (isLoading) {
-    return (
-      <div className="my-20">
-        <Spinner />
-      </div>
-    );
-  }
 
-  if (error) {
-    return (
-      <div className="my-20">
-        <h1>{error.name}</h1>
-        <h3>{error.message}</h3>
-      </div>
-    );
-  }
 
   return (
     <section className="py-2 md:py-16 text-center pt-10 mb-4 lg:mx-10 relative bg-white">
       <div className="container mx-auto">
-        {!categories?.data && (
+        {!categories && (
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-5 gap-6">
             <h1> {t("noCategory")}</h1>
           </div>
         )}
         <div className="relative">
           <div className="grid grid-cols-5 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 overflow-x-auto gap-10 sm:gap-4 md:gap-5 pb-4 custom-scroll">
-            {categories?.data &&
-              categories?.data.map((cat, index) => (
+            {categories &&
+              categories.map((cat, index) => (
                 <Link
                   href={`/shopGrid?categoryid=${cat.id}`}
                   key={index}
