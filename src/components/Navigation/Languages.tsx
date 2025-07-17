@@ -62,7 +62,7 @@ export default function Language() {
     router.push(newPathname);
   };
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return <div className="my-40 mt-56"><Spinner /></div>;
 
   if (error) {
     return <p className="py-10">{(error as Error).message}</p>;
