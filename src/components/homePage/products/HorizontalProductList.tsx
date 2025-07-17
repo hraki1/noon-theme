@@ -115,12 +115,12 @@ export default function HorizontalProductList({
   };
 
   return (
-    <section className="py-5 px-4 md:px-8 lg:px-12 bg-white lg:mx-10">
+    <section className="py-5 md:px-8 lg:px-12 bg-white lg:mx-10">
       {/* Header Section */}
       <motion.header
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex flex-row justify-between items-center sm:items-center mb-8 gap-4"
+        className="flex flex-row justify-between items-center sm:items-center px-3 mb-8 gap-4"
       >
         <motion.h2
           className="text-2xl md:text-3xl font-bold text-gray-900"
@@ -210,7 +210,7 @@ export default function HorizontalProductList({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
-              className="flex-shrink-0"
+              className="flex-shrink-0 px-3"
             >
               <ProductItem
                 product={product}
