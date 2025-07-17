@@ -5,6 +5,10 @@
   --foreground: #171717;
 }
 
+html{
+  background-color: #feee00;
+}
+
 body {
   font-family: var(--font-nunito), 'Nunito', 'Helvetica Neue', Arial, sans-serif;
 }
