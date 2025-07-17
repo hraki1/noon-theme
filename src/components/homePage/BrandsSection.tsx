@@ -103,7 +103,7 @@ const BrandsSection: React.FC = () => {
         </button>
       )}
       <div ref={scrollRef} className="overflow-x-auto scrollbar-hide px-2 md:px-8 relative">
-        <div className="flex gap-6 mb-5 snap-x snap-mandatory">
+        <div className="flex gap-3 mb-5 snap-x snap-mandatory">
           {data.data.map((brand, idx) => (
             <div
               key={brand.id}
