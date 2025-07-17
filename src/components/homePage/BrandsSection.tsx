@@ -75,7 +75,10 @@ const BrandsSection: React.FC = () => {
 
   return (
     <section className="lg:mx-10 mx-5 relative py-5 ">
-      <h2 className="text-2xl font-bold mb-8 text-center tracking-tight">{t("brands")}</h2>
+      <h2 className="text-3xl md:text-4xl font-extrabold mb-8 text-center tracking-widest text-gray-900 relative">
+        {t("brands")}
+        <span className="block mx-auto mt-2 w-16 h-1 rounded bg-[#feee00]"></span>
+      </h2>
       {/* Gradient overlays for scroll hint */}
       <div className="pointer-events-none absolute left-0 top-0 h-full w-12 z-10 bg-gradient-to-r from-[#f7f7fa] to-transparent" />
       <div className="pointer-events-none absolute right-0 top-0 h-full w-12 z-10 bg-gradient-to-l from-[#f7f7fa] to-transparent" />
@@ -112,9 +115,9 @@ const BrandsSection: React.FC = () => {
                 alt={brand.name}
                 width={80}
                 height={80}
-                className="w-20 h-20 object-contain mb-2 rounded-full border-2 border-gray-200 group-hover:border-blue-400 group-hover:scale-110 transition-all duration-300 shadow-sm"
+                className="w-20 h-20 object-contain mb-2 rounded-full border-2 border-gray-200 group-hover:border-yellow-100 group-hover:scale-110 transition-all duration-300 shadow-sm"
               />
-              <span className="text-base font-semibold text-gray-700 group-hover:text-blue-600 transition-colors text-center mt-1">
+              <span className="text-base font-semibold text-gray-700 group-hover:text-[#feee00] transition-colors text-center mt-1">
                 {brand.name}
               </span>
             </div>
@@ -126,4 +129,3 @@ const BrandsSection: React.FC = () => {
 };
 
 export default BrandsSection;
- 

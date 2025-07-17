@@ -37,7 +37,7 @@ export default function CategoriesList() {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <span className="mt-2 text-sm sm:text-base  mx-2 font-bold pr-text group-hover:text-black transition-colors duration-300">
+                  <span className="mt-2 text-sm sm:text-base  mx-2 font-bold  text-black ">
                     {cat.description.name}
                   </span>
                 </Link>
