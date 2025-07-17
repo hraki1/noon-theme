@@ -53,15 +53,6 @@ export default function PremiumNavWidget() {
     queryFn: getCategories,
   });
 
-  // const {
-  //   data: collectionsData,
-  //   isLoading: isLoadingCollections,
-  //   error: errorCollections,
-  //   refetch,
-  // } = useQuery({
-  //   queryKey: ["collections"],
-  //   queryFn: getCollections,
-  // });
 
   useEffect(() => {
     if (categoriesData && brandsData) {
@@ -80,28 +71,13 @@ export default function PremiumNavWidget() {
           ),
           ids: brandsData.data.map((brand: BrandWithProducts) => brand.id),
         },
-        // {
-        //   name: "Collections",
-        //   subcategories: collectionsData.collections.map(
-        //     (col: Collection) => col.name
-        //   ),
-        //   ids: collectionsData.collections.map(
-        //     (col: Collection) => col.collection_id
-        //   ),
-        // },
+       
       ];
 
       setGroups(newGroups);
     }
   }, [categoriesData, brandsData, t]);
 
-  // function handleSearchTerm() {
-  //   if (term) {
-  //     router.push(`/shopGrid?query=${encodeURIComponent(term)}`);
-  //     setIsOpen(false);
-  //     setTerm(null);
-  //   }
-  // }
 
   if (isLoadingBrands || isLoadingCategories) {
     return (
