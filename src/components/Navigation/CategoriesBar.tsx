@@ -6,6 +6,7 @@ import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import { useState, useRef, useEffect } from "react";
 import { organizeCategories } from "@/utils/organizeCategories";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 export default function CategoriesBar() {
     const [showLeftArrow, setShowLeftArrow] = useState(false);
@@ -198,10 +199,13 @@ export default function CategoriesBar() {
                                         >
                                             <div className="w-12 h-12 flex items-center justify-center bg-gray-100 rounded-full overflow-hidden border border-gray-200">
                                                 {sub.description.image ? (
-                                                    <img
+                                                    <Image
                                                         src={sub.description.image}
                                                         alt={sub.description.name}
+                                                        width={48}
+                                                        height={48}
                                                         className="object-cover w-full h-full"
+                                                        style={{ width: "100%", height: "100%" }}
                                                     />
                                                 ) : (
                                                     <span className="text-gray-400 text-xl font-bold">
