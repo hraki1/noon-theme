@@ -42,14 +42,14 @@ const Carousel: React.FC<CarouselProps> = ({ collections }) => {
     <div className="lg:mx-10 relative bg-white">
       {/* Swiper navigation arrows outside for correct DOM timing */}
       <button
-        className="custom-swiper-prev absolute left-4 top-1/2 -translate-y-1/2 z-50 bg-white hover:bg-gray-100 shadow-md rounded-full w-10 h-10 flex items-center justify-center transition-all duration-200 border border-gray-200"
+        className="custom-swiper-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white hover:bg-gray-100 shadow-md rounded-full w-10 h-10 flex items-center justify-center transition-all duration-200 border border-gray-200"
         aria-label="Previous slide"
         type="button"
       >
         <AiOutlineLeft className="w-6 h-6 text-[#1a7a9a]" />
       </button>
       <button
-        className="custom-swiper-next absolute right-4 top-1/2 -translate-y-1/2 z-50 bg-white hover:bg-gray-100 shadow-md rounded-full w-10 h-10 flex items-center justify-center transition-all duration-200 border border-gray-200"
+        className="custom-swiper-next absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white hover:bg-gray-100 shadow-md rounded-full w-10 h-10 flex items-center justify-center transition-all duration-200 border border-gray-200"
         aria-label="Next slide"
         type="button"
       >
