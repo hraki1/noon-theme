@@ -55,7 +55,7 @@ export default function ProductDetails({ params }: ProductDetailsProps) {
   });
 
   const { openAuthModal } = useContext(AuthModalContext);
-  const { addToCart } = useContext(CartContext);
+  const { addToCart, isLoadingAddToCart, isLoadingUpdateCartQuantity } = useContext(CartContext);
   const { isAuthenticated } = useContext(AuthContext);
   const { rate, userCurrency } = useCurrency();
 
@@ -100,12 +100,12 @@ export default function ProductDetails({ params }: ProductDetailsProps) {
 
   const discountPercentage =
     product &&
-    typeof product.price === "number" &&
-    typeof product.originalPrice === "number"
+      typeof product.price === "number" &&
+      typeof product.originalPrice === "number"
       ? Math.round(
-          ((product.originalPrice - product.price) / product.originalPrice) *
-            100
-        )
+        ((product.originalPrice - product.price) / product.originalPrice) *
+        100
+      )
       : 0;
 
   const nextImage = () => {
@@ -360,11 +360,10 @@ export default function ProductDetails({ params }: ProductDetailsProps) {
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                           onClick={() => setCurrentImage(index)}
-                          className={`bg-gray-50 p-2 sm:p-3 rounded-lg transition-all ${
-                            currentImage === index
-                              ? "ring-2 ring-black"
-                              : "hover:ring-1 hover:ring-gray-300"
-                          }`}
+                          className={`bg-gray-50 p-2 sm:p-3 rounded-lg transition-all ${currentImage === index
+                            ? "ring-2 ring-black"
+                            : "hover:ring-1 hover:ring-gray-300"
+                            }`}
                         >
                           <div className="relative aspect-square h-16 sm:h-20 md:h-28 w-full">
                             <Image
@@ -502,11 +501,10 @@ export default function ProductDetails({ params }: ProductDetailsProps) {
                     <button
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
-                      className={`pb-3 sm:pb-4 px-1 font-medium relative text-xs sm:text-sm uppercase tracking-wider whitespace-nowrap ${
-                        activeTab === tab.id
-                          ? "text-black"
-                          : "text-gray-500 hover:text-gray-900"
-                      }`}
+                      className={`pb-3 sm:pb-4 px-1 font-medium relative text-xs sm:text-sm uppercase tracking-wider whitespace-nowrap ${activeTab === tab.id
+                        ? "text-black"
+                        : "text-gray-500 hover:text-gray-900"
+                        }`}
                     >
                       {tab.label}
                       {activeTab === tab.id && (
@@ -583,6 +581,7 @@ export default function ProductDetails({ params }: ProductDetailsProps) {
                       {/* Add to Cart Button - Full width */}
                       <motion.button
                         onClick={handleAddToCart}
+                        disabled={isLoadingAddToCart || isLoadingUpdateCartQuantity}
                         whileHover={{
                           scale: 1.02,
                           boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
@@ -590,13 +589,25 @@ export default function ProductDetails({ params }: ProductDetailsProps) {
                         whileTap={{ scale: 0.98 }}
                         className="w-full bg-black text-white py-3 sm:py-4 px-4 sm:px-6 rounded-full font-medium flex items-center justify-center gap-2 sm:gap-3 text-base sm:text-lg"
                       >
-                        <FiShoppingCart className="text-lg sm:text-xl" />
-                        <span>
-                          {t("addToCart", {
-                            price: price,
-                            cu: userCurrency,
-                          })}
-                        </span>
+                        {isLoadingAddToCart || isLoadingUpdateCartQuantity ? (
+                          <>
+                            <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                            </svg>
+                            {t("addToCartLoading")}
+                          </>
+                        ) : (
+                          <>
+                            <FiShoppingCart className="text-lg sm:text-xl" />
+                            <span>
+                              {t("addToCart", {
+                                price: price,
+                                cu: userCurrency,
+                              })}
+                            </span>
+                          </>
+                        )}
                       </motion.button>
                     </div>
                   ) : (
@@ -617,9 +628,8 @@ export default function ProductDetails({ params }: ProductDetailsProps) {
                         onClick={() => product && toggleLike(product)}
                       >
                         <FiHeart
-                          className={`h-6 w-6 sm:h-7 sm:w-7 ${
-                            likedProduct ? "fill-red-500 text-red-500" : ""
-                          }`}
+                          className={`h-6 w-6 sm:h-7 sm:w-7 ${likedProduct ? "fill-red-500 text-red-500" : ""
+                            }`}
                         />
                       </motion.button>
                       <motion.button

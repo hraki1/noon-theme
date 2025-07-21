@@ -14,6 +14,7 @@ interface ProductDescription {
 // Inventory interface
 interface ProductInventory {
   stock_availability: boolean;
+  qty: number;
 }
 
 // Product interface

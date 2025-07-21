@@ -395,7 +395,7 @@ const CartContextProvider: React.FC<CartContextProviderProps> = ({
       console.log(exsistingItem);
       updateCartItemQuantityMutate({
         cart_item_id: exsistingItem.cart_item_id,
-        qty: exsistingItem.qty,
+        qty: exsistingItem.qty + qty,
       });
     } else {
       console.log("add new");

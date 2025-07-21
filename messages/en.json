@@ -260,7 +260,11 @@
       "uppercase": "At least one uppercase letter",
       "number": "At least one number",
       "specialChar": "At least one special character",
-      "match": "Passwords match"
+      "match": "Passwords match",
+      "weak": "Weak",
+      "fair": "Fair",
+      "good": "Good",
+      "strong": "Strong"
     },
     "errors": {
       "passwordLength": "Password should be 8 characters at least!"
@@ -681,6 +685,7 @@
       "reviews": "Reviews"
     },
     "addToCart": "Add to Cart - ${price}",
+    "addToCartLoading": "Adding to cart...",
     "quantity": "Quantity",
     "save": "Save {cu} {amount}",
     "since": "Since {year}",
@@ -734,6 +739,7 @@
     "updatedQuantitySuccess": "Item quantity updated successfully!",
     "goToCart": "Go to cart"
   },
+  "addToCartLoading": "Adding to cart...",
   "BecomeVendor": {
     "title": "Become a Vendor",
     "description": "Join our platform as a vendor and start selling your products to our customers",

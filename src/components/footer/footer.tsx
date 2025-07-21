@@ -61,7 +61,7 @@ export default function Footer() {
 
             <div className="flex flex-col md:flex-row gap-8 justify-center items-center w-full lg:w-auto">
 
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col md:flex-row gap-3">
 
                 <div className="w-full lg:w-auto">
                   <div className="flex items-center gap-4">
@@ -99,9 +99,6 @@ export default function Footer() {
                   </div>
                 </div>
               </div>
-
-
-
 
             </div>
           </div>

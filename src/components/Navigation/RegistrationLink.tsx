@@ -12,11 +12,13 @@ import { AuthContext } from "@/store/AuthContext";
 import { AuthModalContext } from "@/store/AuthModalContext";
 import Link from "next/link";
 import { restPasswordRequest } from "@/lib/axios/resetPasswordAxios";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { PiUserCircleFill } from "react-icons/pi";
 
 export default function RegistrationLink() {
   const t = useTranslations("auth");
+  const locale = useLocale();
+  const isRTL = locale === "ar";
 
   const { login: loginCxt } = useContext(AuthContext);
   const { openAuthModal, closeAuthModal, isAuthModalOpen } =
@@ -218,11 +220,11 @@ export default function RegistrationLink() {
         <h2 className="hidden md:block text-gray-600 group-hover:opacity-50 font-bold">
           {t("login.title")}
         </h2>
-        <PiUserCircleFill   className=" font-bold text-2xl text-gray-600 group-hover:opacity-50" />
+        <PiUserCircleFill className=" font-bold text-2xl text-gray-600 group-hover:opacity-50" />
       </div>
 
       <Modal open={isAuthModalOpen} classesName="pr-bg">
-        <div className="pr-bg text-white rounded-2xl w-full max-w-md p-6 relative z-[1500]">
+        <div className="pr-bg text-white rounded-2xl w-full max-w-md p-6 relative z-[1500]" dir={isRTL ? "rtl" : "ltr"}>
           {/* زر الإغلاق */}
           <button
             onClick={handleCloseModal}
@@ -256,11 +258,10 @@ export default function RegistrationLink() {
                     type="email"
                     value={formInput.email}
                     onChange={handleInputChange}
-                    className={`w-full p-2 rounded bg-slate-700 border ${
-                      errors.email
+                    className={`w-full p-2 rounded bg-slate-700 border ${errors.email
                         ? "border-red-500 focus:ring-red-500"
                         : "border-slate-600 focus:ring-blue-500"
-                    } focus:outline-none focus:ring-2`}
+                      } focus:outline-none focus:ring-2`}
                     placeholder="example@email.com"
                   />
                 </div>
@@ -281,11 +282,10 @@ export default function RegistrationLink() {
                     type="password"
                     value={formInput.pass}
                     onChange={handleInputChange}
-                    className={`w-full p-2 rounded bg-slate-700 border ${
-                      errors.pass
+                    className={`w-full p-2 rounded bg-slate-700 border ${errors.pass
                         ? "border-red-500 focus:ring-red-500"
                         : "border-slate-600 focus:ring-blue-500"
-                    } focus:outline-none focus:ring-2`}
+                      } focus:outline-none focus:ring-2`}
                     placeholder="••••••••"
                   />
                 </div>
@@ -363,11 +363,10 @@ export default function RegistrationLink() {
                     type="text"
                     value={formInput.name}
                     onChange={handleInputChange}
-                    className={`w-full p-2 rounded bg-slate-700 border ${
-                      errors.name
+                    className={`w-full p-2 rounded bg-slate-700 border ${errors.name
                         ? "border-red-500 focus:ring-red-500"
                         : "border-slate-600 focus:ring-green-500"
-                    } focus:outline-none focus:ring-2`}
+                      } focus:outline-none focus:ring-2`}
                     placeholder={t("signup.fullName")}
                   />
                 </div>
@@ -390,11 +389,10 @@ export default function RegistrationLink() {
                     type="tel"
                     value={formInput.phone}
                     onChange={handleInputChange}
-                    className={`w-full p-2 rounded bg-slate-700 border ${
-                      errors.phone
+                    className={`w-full p-2 rounded bg-slate-700 border ${errors.phone
                         ? "border-red-500 focus:ring-red-500"
                         : "border-slate-600 focus:ring-green-500"
-                    } focus:outline-none focus:ring-2`}
+                      } focus:outline-none focus:ring-2`}
                     placeholder="078XXXXXXXX"
                   />
                 </div>
@@ -416,11 +414,10 @@ export default function RegistrationLink() {
                     type="email"
                     value={formInput.email}
                     onChange={handleInputChange}
-                    className={`w-full p-2 rounded bg-slate-700 border ${
-                      errors.email
+                    className={`w-full p-2 rounded bg-slate-700 border ${errors.email
                         ? "border-red-500 focus:ring-red-500"
                         : "border-slate-600 focus:ring-green-500"
-                    } focus:outline-none focus:ring-2`}
+                      } focus:outline-none focus:ring-2`}
                     placeholder="example@email.com"
                   />
                 </div>
@@ -441,11 +438,10 @@ export default function RegistrationLink() {
                     type="password"
                     value={formInput.pass}
                     onChange={handleInputChange}
-                    className={`w-full p-2 rounded bg-slate-700 border ${
-                      errors.pass
+                    className={`w-full p-2 rounded bg-slate-700 border ${errors.pass
                         ? "border-red-500 focus:ring-red-500"
                         : "border-slate-600 focus:ring-green-500"
-                    } focus:outline-none focus:ring-2`}
+                      } focus:outline-none focus:ring-2`}
                     placeholder="••••••••"
                   />
                 </div>
@@ -458,9 +454,8 @@ export default function RegistrationLink() {
                       name="agreePolicy"
                       checked={formInput.agreePolicy}
                       onChange={handleInputChange}
-                      className={`${
-                        errors.agreePolicy ? "border-red-500" : ""
-                      }`}
+                      className={`${errors.agreePolicy ? "border-red-500" : ""
+                        }`}
                     />
                     <label htmlFor="agree"> {t("signup.agreePolicy")}</label>
                   </div>
@@ -535,7 +530,7 @@ export default function RegistrationLink() {
                 <div>
                   <div className="flex justify-between">
                     <label className="block mb-1 ">
-                      {t("otp.password.sentTo")}
+                      {t("otp.sentTo")}
                       <span className="text-sm text-gray-400">
                         {" "}
                         {formInput.email}
@@ -553,11 +548,10 @@ export default function RegistrationLink() {
                     type="string"
                     onChange={handleInputChange}
                     value={formInput.otp}
-                    className={`w-full p-2 rounded bg-slate-700 text-center border ${
-                      errors.email
+                    className={`w-full p-2 rounded bg-slate-700 text-center border ${errors.email
                         ? "border-red-500 focus:ring-red-500"
                         : "border-slate-600 focus:ring-blue-500"
-                    } focus:outline-none focus:ring-2`}
+                      } focus:outline-none focus:ring-2`}
                     placeholder={t("otp.placeholder")}
                   />
                 </div>
@@ -605,13 +599,13 @@ export default function RegistrationLink() {
                 </div>
               ) : (
                 <div>
-                  <h2 className="text-xl font-bold mb-4 text-center ">
+                  <h2 className={`text-xl font-bold mb-4 text-center ${isRTL ? 'font-arabic' : ''}`}>
                     {t("forgotPassword.title")}
                   </h2>
-                  <div className="space-y-4 text-center">
+                  <div className={`space-y-4 ${isRTL ? 'text-right' : 'text-left'}`}>
                     <div>
-                      <div className="flex justify-center">
-                        <label className="block mb-2 text-gray-300">
+                      <div className={`flex ${isRTL ? 'justify-end' : 'justify-start'}`}>
+                        <label className={`block mb-2 text-gray-300 ${isRTL ? 'ml-2' : 'mr-2'}`}>
                           {t("forgotPassword.enterEmail")}
                         </label>
                         {errors.otp && (
@@ -623,14 +617,13 @@ export default function RegistrationLink() {
 
                       <input
                         name="email"
-                        type="string"
+                        type="email"
                         onChange={handleInputChange}
                         value={formInput.email}
-                        className={`w-full p-2 rounded bg-slate-700 text-center border ${
-                          errors.email
+                        className={`w-full p-2 rounded bg-slate-700 border ${isRTL ? 'text-right pr-4' : 'text-left pl-4'} ${errors.email
                             ? "border-red-500 focus:ring-red-500"
                             : "border-slate-600 focus:ring-blue-500"
-                        } focus:outline-none focus:ring-2`}
+                          } focus:outline-none focus:ring-2`}
                         placeholder={t("forgotPassword.emailPlaceholder")}
                       />
                     </div>
@@ -639,21 +632,20 @@ export default function RegistrationLink() {
                       disabled={isPendingResetPassword}
                       type="button"
                       onClick={handleForgetPassword}
-                      className="w-full bg-blue-600 hover:bg-blue-700 transition-colors py-2 rounded text-white cursor-pointer"
+                      className={`w-full bg-blue-600 hover:bg-blue-700 transition-colors py-2 rounded text-white cursor-pointer ${isRTL ? 'font-arabic' : ''}`}
                     >
                       {isPendingResetPassword
                         ? `...${t("forgotPassword.submit")}`
                         : t("forgotPassword.submit")}
                     </button>
-                    <div className="text-center my-4 text-sm">
+                    <div className={`text-sm ${isRTL ? 'text-right' : 'text-left'}`}>
                       {t("forgotPassword.noAccount")}
-
                       <button
                         onClick={() => {
                           setContentView("signup");
                           setErrors({});
                         }}
-                        className="text-blue-400 hover:underline"
+                        className="text-blue-400 hover:underline ml-2"
                       >
                         {t("forgotPassword.createAccount")}
                       </button>

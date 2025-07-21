@@ -26,7 +26,7 @@ const Shipping: React.FC<{
 }) => {
 
     const t = useTranslations("shipping");
-    const {summaryCart } = useContext(CartContext)
+    const { summaryCart } = useContext(CartContext)
     const { data, isLoading, error } = useQuery({
       queryKey: ["shipping"],
       queryFn: () => getShippingMethod(summaryCart.cart_id, addressId),
@@ -86,40 +86,38 @@ const Shipping: React.FC<{
         <h2 className="text-xl font-medium text-gray-900">{t("title")}</h2>
 
         <div className="space-y-4">
-          {data.map((shZo, index) => (
-            <div key={index}>
-              {data.map((method, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between border p-4 border-gray-200 rounded-md hover:border-indigo-500 cursor-pointer"
+
+          {data.map((method, index) => (
+            <div
+              key={index}
+              className="flex items-center justify-between border p-4 border-gray-200 rounded-md hover:border-indigo-500 cursor-pointer"
+            >
+              <div className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  id={method.name}
+                  name="shipping"
+                  value={method.methodId}
+                  onChange={handleSelectDelevaryMethod}
+                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+                  defaultChecked={
+                    selectedShippingMethod !== null &&
+                    selectedShippingMethod === method.methodId
+                  }
+                />
+                <label
+                  htmlFor={method.name}
+                  className=" block text-sm font-medium text-gray-700"
                 >
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="radio"
-                      id={method.name}
-                      name="shipping"
-                      value={method.methodId}
-                      onChange={handleSelectDelevaryMethod}
-                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
-                      defaultChecked={
-                        selectedShippingMethod !== null &&
-                        selectedShippingMethod === method.methodId
-                      }
-                    />
-                    <label
-                      htmlFor={method.name}
-                      className=" block text-sm font-medium text-gray-700"
-                    >
-                      {method.name}
-                    </label>
-                  </div>
-                  <span className="text-sm text-gray-600">
-                    {userCurrency} {viewPriceCurencyHandler(method.cost ?? 0)}
-                  </span>
-                </div>
-              ))}
+                  {method.name}
+                </label>
+              </div>
+              <span className="text-sm text-gray-600">
+                {userCurrency} {viewPriceCurencyHandler(method.cost ?? 0)}
+              </span>
             </div>
           ))}
+
         </div>
 
         <div className="flex justify-between pt-4">

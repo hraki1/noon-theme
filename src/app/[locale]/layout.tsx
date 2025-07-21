@@ -23,6 +23,7 @@ import { getLocationCurrency } from "@/lib/currencySettings/get-location";
 import CurrencyProvider from "@/store/CurrencyContext";
 import { CategoriesProvider } from "@/store/CategoriesContext";
 import { BrandsProvider } from "@/store/BrandsContext";
+import ClientLayoutPart from "./ClientLayoutPart";
 
 const dosis = Dosis({
   variable: "--font-dosis",
@@ -57,7 +58,7 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  const { locale } = params;
+  const { locale } = await params;
 
   if (!hasLocale(routing.locales, locale)) {
     redirect("/en");
@@ -95,6 +96,7 @@ export default async function RootLayout({
                           <BrandsProvider>
                             <Toaster />
                             <div id="root-modal"></div>
+                            <ClientLayoutPart />
                             <Navbar />
                             {children}
                             <Footer />
