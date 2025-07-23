@@ -21,7 +21,7 @@ export function transformProductCartItem(
     ].filter(Boolean) as string[],
     short_description: product.description.short_description,
 
-    stock_availability: product.inventory.qty === 0 ? false : true,
+    stock_availability: product.inventory.stock_availability,
     description: product.description.description,
   };
 }

@@ -7,13 +7,14 @@ import { useMutation } from "@tanstack/react-query";
 import { signUp, SignUpRequest } from "@/lib/axios/signUpAxios";
 import toast from "react-hot-toast";
 import { login, loginRequest } from "@/lib/axios/loginAxios";
-import { otpRequest, otpVerify } from "@/lib/axios/otpAxios";
+import { otpRequest, otpVerify, resendOtp } from "@/lib/axios/otpAxios";
 import { AuthContext } from "@/store/AuthContext";
 import { AuthModalContext } from "@/store/AuthModalContext";
 import Link from "next/link";
 import { restPasswordRequest } from "@/lib/axios/resetPasswordAxios";
 import { useTranslations, useLocale } from "next-intl";
 import { PiUserCircleFill } from "react-icons/pi";
+import { useEffect } from "react";
 
 export default function RegistrationLink() {
   const t = useTranslations("auth");
@@ -38,12 +39,23 @@ export default function RegistrationLink() {
 
   const [successResetPasswordRequest, setSuccessResetPasswordRequest] =
     useState<string | null>(null);
+  const [countdown, setCountdown] = useState(0);
+
+  // Countdown timer effect
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (countdown > 0) {
+      timer = setTimeout(() => setCountdown(countdown - 1), 1000);
+    }
+    return () => clearTimeout(timer);
+  }, [countdown]);
 
   // signup mutation field .....
   const { mutate: mutateSignup, isPending: isPendingSignup } = useMutation({
     mutationFn: signUp,
     onSuccess: (data) => {
       console.log("تم إنشاء الحساب بنجاح", data);
+      setCountdown(60)
       setContentView("otp");
     },
     onError: (error: Error) => {
@@ -83,6 +95,25 @@ export default function RegistrationLink() {
     onError: (error: Error) => {
       console.log("خطأ أثناء otp:", error.message);
       toast.error(error.message);
+      setErrors({ otp: error.message });
+    },
+  });
+
+  // resend OTP
+  // otp mutation field .....
+  const { mutate: resendOTP, isPending: isPendingResendOtp } = useMutation({
+    mutationFn: resendOtp,
+    onSuccess: (data) => {
+      console.log("تم ارسال otp", data);
+      setErrors({});
+      setCountdown(60)
+      toast.success(data)
+
+    },
+    onError: (error: Error) => {
+      console.log("خطأ أثناء otp:", error.message);
+      toast.error(error.message);
+      setErrors({ otp: error.message });
     },
   });
 
@@ -164,11 +195,16 @@ export default function RegistrationLink() {
     }
   };
 
+  const handleResendOtp = (e: React.FormEvent) => {
+    e.preventDefault();
+    resendOTP(formInput.email);
+  };
+
   const handleVerifyOtp = (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors: { [key: string]: string } = {};
 
-    if (formInput.otp.length !== 6) newErrors.otp = t("otp.errors.enterEmail");
+    // if (formInput.otp.length !== 6) newErrors.otp = t("otp.errors.enterEmail");
 
     setErrors(newErrors);
 
@@ -187,6 +223,7 @@ export default function RegistrationLink() {
     console.log(formInput.email);
     mutateRequestResetPassword({ email: formInput.email });
   }
+
 
   // handle close modal and rest it ...
   function handleCloseModal() {
@@ -259,8 +296,8 @@ export default function RegistrationLink() {
                     value={formInput.email}
                     onChange={handleInputChange}
                     className={`w-full p-2 rounded bg-slate-700 border ${errors.email
-                        ? "border-red-500 focus:ring-red-500"
-                        : "border-slate-600 focus:ring-blue-500"
+                      ? "border-red-500 focus:ring-red-500"
+                      : "border-slate-600 focus:ring-blue-500"
                       } focus:outline-none focus:ring-2`}
                     placeholder="example@email.com"
                   />
@@ -283,8 +320,8 @@ export default function RegistrationLink() {
                     value={formInput.pass}
                     onChange={handleInputChange}
                     className={`w-full p-2 rounded bg-slate-700 border ${errors.pass
-                        ? "border-red-500 focus:ring-red-500"
-                        : "border-slate-600 focus:ring-blue-500"
+                      ? "border-red-500 focus:ring-red-500"
+                      : "border-slate-600 focus:ring-blue-500"
                       } focus:outline-none focus:ring-2`}
                     placeholder="••••••••"
                   />
@@ -364,8 +401,8 @@ export default function RegistrationLink() {
                     value={formInput.name}
                     onChange={handleInputChange}
                     className={`w-full p-2 rounded bg-slate-700 border ${errors.name
-                        ? "border-red-500 focus:ring-red-500"
-                        : "border-slate-600 focus:ring-green-500"
+                      ? "border-red-500 focus:ring-red-500"
+                      : "border-slate-600 focus:ring-green-500"
                       } focus:outline-none focus:ring-2`}
                     placeholder={t("signup.fullName")}
                   />
@@ -390,8 +427,8 @@ export default function RegistrationLink() {
                     value={formInput.phone}
                     onChange={handleInputChange}
                     className={`w-full p-2 rounded bg-slate-700 border ${errors.phone
-                        ? "border-red-500 focus:ring-red-500"
-                        : "border-slate-600 focus:ring-green-500"
+                      ? "border-red-500 focus:ring-red-500"
+                      : "border-slate-600 focus:ring-green-500"
                       } focus:outline-none focus:ring-2`}
                     placeholder="078XXXXXXXX"
                   />
@@ -415,8 +452,8 @@ export default function RegistrationLink() {
                     value={formInput.email}
                     onChange={handleInputChange}
                     className={`w-full p-2 rounded bg-slate-700 border ${errors.email
-                        ? "border-red-500 focus:ring-red-500"
-                        : "border-slate-600 focus:ring-green-500"
+                      ? "border-red-500 focus:ring-red-500"
+                      : "border-slate-600 focus:ring-green-500"
                       } focus:outline-none focus:ring-2`}
                     placeholder="example@email.com"
                   />
@@ -439,8 +476,8 @@ export default function RegistrationLink() {
                     value={formInput.pass}
                     onChange={handleInputChange}
                     className={`w-full p-2 rounded bg-slate-700 border ${errors.pass
-                        ? "border-red-500 focus:ring-red-500"
-                        : "border-slate-600 focus:ring-green-500"
+                      ? "border-red-500 focus:ring-red-500"
+                      : "border-slate-600 focus:ring-green-500"
                       } focus:outline-none focus:ring-2`}
                     placeholder="••••••••"
                   />
@@ -549,11 +586,25 @@ export default function RegistrationLink() {
                     onChange={handleInputChange}
                     value={formInput.otp}
                     className={`w-full p-2 rounded bg-slate-700 text-center border ${errors.email
-                        ? "border-red-500 focus:ring-red-500"
-                        : "border-slate-600 focus:ring-blue-500"
+                      ? "border-red-500 focus:ring-red-500"
+                      : "border-slate-600 focus:ring-blue-500"
                       } focus:outline-none focus:ring-2`}
                     placeholder={t("otp.placeholder")}
                   />
+                </div>
+
+                <div className="flex flex-row gap-3 justify-center">
+                  <button
+                    className={`px-2 py-1 rounded-lg text-sm transition-colors ${countdown > 0 || isPendingResendOtp
+                      ? "bg-gray-400 text-gray-300 cursor-not-allowed"
+                      : "bg-gray-500 text-white hover:bg-gray-600 cursor-pointer"
+                      }`}
+                    disabled={countdown > 0 || isPendingResendOtp}
+                    onClick={handleResendOtp}
+                  >
+                    Resend Password
+                  </button>
+                  {countdown === 0 && <p>{countdown}</p>}
                 </div>
 
                 <button
@@ -621,11 +672,12 @@ export default function RegistrationLink() {
                         onChange={handleInputChange}
                         value={formInput.email}
                         className={`w-full p-2 rounded bg-slate-700 border ${isRTL ? 'text-right pr-4' : 'text-left pl-4'} ${errors.email
-                            ? "border-red-500 focus:ring-red-500"
-                            : "border-slate-600 focus:ring-blue-500"
+                          ? "border-red-500 focus:ring-red-500"
+                          : "border-slate-600 focus:ring-blue-500"
                           } focus:outline-none focus:ring-2`}
                         placeholder={t("forgotPassword.emailPlaceholder")}
                       />
+
                     </div>
 
                     <button

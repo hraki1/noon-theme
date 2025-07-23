@@ -27,3 +27,24 @@ export const otpVerify = async (data: otpRequest): Promise<otpResponse> => {
     throw new Error(message);
   }
 };
+
+
+export const resendOtp = async (email: string) => {
+  console.log(email);
+
+  try {
+    const response = await axios.post<{ message: string }>(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/resend-otp`,
+      { email }
+    );
+    return response.data.message || "تم إرسال الرمز بنجاح";
+  } catch (err) {
+    const error = err as AxiosError<{ message: string }>;
+    const message =
+      error.response?.data?.message || "حدث خطأ غير متوقع أثناء التسجيل";
+    throw new Error(message);
+  }
+};
+
+
+

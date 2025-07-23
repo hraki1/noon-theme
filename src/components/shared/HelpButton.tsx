@@ -20,7 +20,7 @@ export default function FloatingCallButton() {
   const buttonVariants = {
     inactive: {
       scale: 1,
-      backgroundColor: "#023047",
+      backgroundColor: "#000",
       transition: spring,
     },
     active: {

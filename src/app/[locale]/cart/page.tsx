@@ -80,6 +80,8 @@ const CartPage = () => {
     </div>;
   }
 
+  console.log(margeItems)
+
   return (
     <>
       <Head>
@@ -194,11 +196,10 @@ const CartPage = () => {
                                       item.qty - 1
                                     )
                                   }
-                                  className={`${
-                                    isLoadingUpdateCartQuantity &&
+                                  className={`${isLoadingUpdateCartQuantity &&
                                     isLoadingCart &&
                                     " cursor-none"
-                                  } px-3 py-1 text-gray-600 hover:bg-gray-100`}
+                                    } px-3 py-1 text-gray-600 hover:bg-gray-100`}
                                 >
                                   -
                                 </button>
@@ -213,11 +214,10 @@ const CartPage = () => {
                                       item.qty + 1
                                     )
                                   }
-                                  className={`${
-                                    isLoadingUpdateCartQuantity &&
+                                  className={`${isLoadingUpdateCartQuantity &&
                                     isLoadingCart &&
                                     " cursor-none"
-                                  } px-3 py-1 text-gray-600 hover:bg-gray-100`}
+                                    } px-3 py-1 text-gray-600 hover:bg-gray-100`}
                                 >
                                   +
                                 </button>
@@ -310,9 +310,8 @@ const CartPage = () => {
                   disabled={margeItems.length === 0}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className={`${
-                    margeItems.length > 0 ? "opacity-100" : "opacity-45"
-                  } cursor-pointer mt-6 w-full bg-indigo-600 text-white py-3 px-4 rounded-md hover:bg-indigo-700 transition font-medium`}
+                  className={`${margeItems.length > 0 ? "opacity-100" : "opacity-45"
+                    } cursor-pointer mt-6 w-full bg-indigo-600 text-white py-3 px-4 rounded-md hover:bg-indigo-700 transition font-medium`}
                 >
                   {t("checkout")}
                 </motion.button>
@@ -384,9 +383,8 @@ const CartPage = () => {
                       disabled={margeItems.length === 0}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
-                      className={`${
-                        margeItems.length > 0 ? "opacity-100" : "opacity-45"
-                      } cursor-pointer mt-6 w-full bg-indigo-600 text-white py-3 px-4 rounded-md hover:bg-indigo-700 transition font-medium`}
+                      className={`${margeItems.length > 0 ? "opacity-100" : "opacity-45"
+                        } cursor-pointer mt-6 w-full bg-indigo-600 text-white py-3 px-4 rounded-md hover:bg-indigo-700 transition font-medium`}
                     >
                       {t("coupon.apply")}
                     </motion.button>

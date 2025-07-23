@@ -440,6 +440,13 @@
         "cod": "Paiement à la Livraison"
       }
     },
+    "supportTitle": "Nous sommes toujours prêts à vous aider",
+    "supportDesc": "Contactez-nous via l'un des canaux d'assistance suivants :",
+    "supportMobile": "Assistance mobile",
+    "supportEmail": "Assistance par e-mail",
+    "supportCenter": "Centre d'aide",
+    "supportTech": "Support technique",
+    "contactUs": "Contactez-nous",
     "copyright": "© {year} {name}. Tous droits réservés."
   },
 
@@ -999,16 +1006,17 @@
       }
     }
   },
+  "brandsSection": {
+    "brands": "Marques",
+    "noBrands": "Aucune marque disponible",
+    "retry": "Réessayer"
+  },
+  "addToCartLoading": "Ajout au panier...",
   "supportTitle": "Nous sommes toujours prêts à vous aider",
   "supportDesc": "Contactez-nous via l'un des canaux d'assistance suivants :",
   "supportMobile": "Assistance mobile",
   "supportEmail": "Assistance par e-mail",
   "supportCenter": "Centre d'aide",
   "supportTech": "Support technique",
-  "contactUs": "Contactez-nous",
-  "brandsSection": {
-    "brands": "Marques",
-    "noBrands": "Aucune marque disponible",
-    "retry": "Réessayer"
-  }
+  "contactUs": "Contactez-nous"
 }

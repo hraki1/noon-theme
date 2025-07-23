@@ -142,13 +142,13 @@ export const CartContext = createContext<CartContextType>({
     shippingFee: null,
   },
   margeItems: [],
-  addToCart: () => {},
-  updateCartItemQuantity: () => {},
-  deleteCartItem: () => {},
-  applyCoupon: () => {},
-  deleteAppliedCoupon: () => {},
-  saveOrderInfo: () => {},
-  updateCart: () => {},
+  addToCart: () => { },
+  updateCartItemQuantity: () => { },
+  deleteCartItem: () => { },
+  applyCoupon: () => { },
+  deleteAppliedCoupon: () => { },
+  saveOrderInfo: () => { },
+  updateCart: () => { },
   cartError: null,
   getCartError: null,
   isLoadingCart: false,
@@ -233,9 +233,8 @@ const CartContextProvider: React.FC<CartContextProviderProps> = ({
         toast.dismiss(); // 👈 يخفي أي توستات شغالة حالياً
         toast.custom((toastInstance) => (
           <div
-            className={`${
-              toastInstance.visible ? "animate-enter" : "animate-leave"
-            } max-w-md w-full bg-white shadow-xl rounded-xl pointer-events-auto flex border border-gray-100 overflow-hidden`}
+            className={`${toastInstance.visible ? "animate-enter" : "animate-leave"
+              } max-w-md w-full bg-white shadow-xl rounded-xl pointer-events-auto flex border border-gray-100 overflow-hidden`}
           >
             <div className="flex-1 p-4 flex items-center">
               <div className="flex-shrink-0 h-10 w-10 bg-green-100 rounded-full flex items-center justify-center">
@@ -285,9 +284,8 @@ const CartContextProvider: React.FC<CartContextProviderProps> = ({
       } else {
         toast.custom((toastInstance) => (
           <div
-            className={`${
-              toastInstance.visible ? "animate-enter" : "animate-leave"
-            } max-w-md w-full bg-white shadow-xl rounded-xl pointer-events-auto flex border border-gray-100 overflow-hidden`}
+            className={`${toastInstance.visible ? "animate-enter" : "animate-leave"
+              } max-w-md w-full bg-white shadow-xl rounded-xl pointer-events-auto flex border border-gray-100 overflow-hidden`}
           >
             <div className="flex-1 p-4 flex items-center">
               <div className="flex-shrink-0 h-10 w-10 bg-green-100 rounded-full flex items-center justify-center">
@@ -385,7 +383,6 @@ const CartContextProvider: React.FC<CartContextProviderProps> = ({
   // ****************************** end mutate section
 
   // ****************************** strat actions section
-
   const addToCart = (productId: number, qty: number = 1) => {
     const exsistingItem = cartItems.find(
       (item) => item.product_id === productId
@@ -437,29 +434,32 @@ const CartContextProvider: React.FC<CartContextProviderProps> = ({
 
   // ****************************** end actions section
   const mergeCartItems = (items: CartItem[]): CartItem[] => {
-    const merged: CartItem[] = [];
+    const mergedMap = new Map<string, CartItem>();
 
     items.forEach((item) => {
-      const existing = merged.find((i) => i.product_id === item.product_id);
+      // Create a unique key based on all distinguishing properties
+      const key = [
+        item.product_id,
+        JSON.stringify(item.variant_options),
+        JSON.stringify(item.product_custom_options)
+      ].join("|");
+
+      const existing = mergedMap.get(key);
       if (existing) {
         existing.qty += item.qty;
         existing.line_total += item.line_total;
         existing.line_total_with_discount += item.line_total_with_discount;
         existing.line_total_incl_tax += item.line_total_incl_tax;
-        existing.line_total_with_discount_incl_tax +=
-          item.line_total_with_discount_incl_tax;
+        existing.line_total_with_discount_incl_tax += item.line_total_with_discount_incl_tax;
       } else {
-        merged.push({ ...item });
+        mergedMap.set(key, { ...item });
       }
     });
 
-    // 🔽 Sort by product_name alphabetically (case-insensitive)
+    const merged = Array.from(mergedMap.values());
     merged.sort((a, b) =>
-      a.product_name.localeCompare(b.product_name, undefined, {
-        sensitivity: "base",
-      })
+      a.product_name.localeCompare(b.product_name, undefined, { sensitivity: "base" })
     );
-
     return merged;
   };
 

@@ -50,7 +50,7 @@ export function transformProduct(product: Product): FrontendProduct {
     url_key: product.description.url_key,
     // reviews: product.reviews
     meanRating: product.meanRating,
-    stock_availability: product.inventory.qty === 0 ? false : true, // or set appropriate default/fallback
+    stock_availability: product.inventory.stock_availability, // or set appropriate default/fallback
     group_id: product.group_id,
     variant_group_id: product.variant_group_id,
   };
