@@ -185,6 +185,8 @@ const CartContextProvider: React.FC<CartContextProviderProps> = ({
   const t = useTranslations("cartContext");
   const pathname = usePathname();
 
+  const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+
   const {
     data,
     isLoading: isLoadingCart,
@@ -193,6 +195,7 @@ const CartContextProvider: React.FC<CartContextProviderProps> = ({
   } = useQuery({
     queryKey: ["cart"],
     queryFn: getCartByToken,
+    enabled: !!token, // Only fetch if token exists
   });
 
   const updateCartState = useCallback((cart: Cart) => {
