@@ -11,9 +11,7 @@ export async function getLocationCurrency(ip: string): Promise<string> {
     }
 
     const data = await res.json();
-    console.log(data);
     const countryCode = data.country_code;
-
     console.log(`🌍 IP Location detected: ${countryCode}`);
 
     return getCurrencyFromCountry(countryCode);

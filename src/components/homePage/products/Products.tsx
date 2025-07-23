@@ -10,6 +10,7 @@ import { getProducts } from "@/lib/axios/getProductsAxios";
 import { FrontEndProductCartItem } from "@/models/frontEndProductCartItem";
 import { useTranslations } from "next-intl";
 import { transformProductCartItem } from "@/utils/trnsformProductCartItem";
+import { useCurrency } from "@/store/CurrencyContext";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -37,6 +38,8 @@ export default function Products() {
         signal
       ),
   });
+
+  const { userIp } = useCurrency()
 
   useEffect(() => {
     if (data) {
@@ -121,6 +124,8 @@ export default function Products() {
       </div>
     );
   }
+
+  console.log(userIp)
 
   return (
     <div className="pt-5  px-4 md:px-8 lg:px-12 bg-white lg:mx-10 min-h-screen">

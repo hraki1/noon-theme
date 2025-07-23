@@ -63,7 +63,6 @@ export default function Home() {
     (collection) => collection.type === "banner"
   );
 
-  console.log(collections[0].products[0])
 
 
   return (

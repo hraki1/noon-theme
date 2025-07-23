@@ -14,12 +14,14 @@ import {
 } from "@/utils/currencyStorage";
 
 type CurrencyContextType = {
+  userIp: string
   userCurrency: string;
   rate: number;
   setUserCurrency: (currency: string) => void;
 };
 
 const defaultCurrencyContext: CurrencyContextType = {
+  userIp: "0",
   userCurrency: "USD",
   rate: 1,
   setUserCurrency: () => { },
@@ -30,15 +32,17 @@ export const CurrencyContext = createContext<CurrencyContextType>(
 );
 
 type Props = {
+  userIp: string
   userIpCurrency: string;
   defaultSettingCurrrency: string;
   children: ReactNode;
 };
 
 export default function CurrencyProvider({
+  userIp,
   userIpCurrency,
   defaultSettingCurrrency,
-  children,
+  children
 }: Props) {
   const [userCurrency, setUserCurrency] = useState(() => {
     if (typeof window !== "undefined") {
@@ -51,8 +55,10 @@ export default function CurrencyProvider({
     return userIpCurrency;
   });
   const [rate, setRate] = useState(1);
+  const [ip, setIp] = useState<string>(userIp);
 
   useEffect(() => {
+    setIp(userIp)
     const saved = getSavedUserCurrency();
     if (saved) {
       setUserCurrency(saved);
@@ -83,7 +89,7 @@ export default function CurrencyProvider({
 
   return (
     <CurrencyContext.Provider
-      value={{ userCurrency, rate, setUserCurrency: handleCurrencyChange }}
+      value={{ userCurrency, rate, setUserCurrency: handleCurrencyChange, userIp: ip }}
     >
       {children}
     </CurrencyContext.Provider>

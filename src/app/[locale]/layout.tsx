@@ -71,6 +71,8 @@ export default async function RootLayout({
   const headersList = await headers();
   const ip = headersList.get("x-forwarded-for")?.split(",")[0] ?? "8.8.8.8";
   const userCurrencyRaw = await getLocationCurrency(ip);
+
+  console.log(userCurrencyRaw)
   const baseSystemCurrency = isValidCurrency(defaultCurrency)
     ? defaultCurrency
     : "USD";
@@ -86,6 +88,7 @@ export default async function RootLayout({
             <CurrencyProvider
               defaultSettingCurrrency={baseSystemCurrency}
               userIpCurrency={userIpCurrency}
+              userIp={ip}
             >
               <QueryClientProvider client={queryClient}>
                 <AuthModalProvider>
