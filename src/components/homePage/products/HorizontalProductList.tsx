@@ -115,7 +115,7 @@ export default function HorizontalProductList({
   };
 
   return (
-    <section className="py-5 md:px-8 lg:px-12 bg-white lg:mx-10">
+    <section className="relative py-5 md:px-8 lg:px-12 bg-white lg:mx-10">
       {/* Header Section */}
       <motion.header
         initial={{ opacity: 0, y: -10 }}

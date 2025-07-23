@@ -1,4 +1,5 @@
-import axios, { AxiosError } from "axios";
+import tokenIpAxios from "./tokenIpAxios";
+import { AxiosError } from "axios";
 
 export interface ShippingMethod {
   methodId: number;
@@ -13,17 +14,11 @@ export const getShippingMethod = async (
   addressId: number
 ): Promise<ShippingMethod[]> => {
   try {
-    const token = localStorage.getItem("token");
-    const response = await axios.get<ShippingMethod[]>(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/${cartId}/shipping-methods/${addressId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+    const response = await tokenIpAxios.get<ShippingMethod[]>(
+      `/${cartId}/shipping-methods/${addressId}`
     );
     return response.data;
-  } catch (err) {
+  } catch (err: unknown) {
     const error = err as AxiosError<{ message: string }>;
     const message =
       error.response?.data?.message || "An unexpected error occurred";

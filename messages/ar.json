@@ -230,7 +230,8 @@
     },
     "errors": {
       "stripeFailed": "فشل الدفع عبر Stripe."
-    }
+    },
+    "loading": "جاري التحميل..."
   },
   "orderSuccess": {
     "title": "تم تأكيد الطلب!",

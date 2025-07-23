@@ -1,25 +1,15 @@
-import axios, { AxiosError } from "axios";
-import { Collection } from "../models/collectionModal";
-
-export interface CollectionResponse {
-  collections: Collection[];
-}
+import tokenIpAxios from "./tokenIpAxios";
+import { AxiosError } from "axios";
+import { CollectionResponse, Collection } from "../models/collectionModal";
 
 export const getCollections = async (): Promise<CollectionResponse> => {
   try {
-    const token = localStorage.getItem("token");
     const lang = localStorage.getItem("lang") ?? "en";
-
-    const response = await axios.get<CollectionResponse>(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/collections?lang=${lang}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+    const response = await tokenIpAxios.get<CollectionResponse>(
+      `/collections?lang=${lang}`
     );
     return response.data;
-  } catch (err) {
+  } catch (err: unknown) {
     const error = err as AxiosError<{ message: string }>;
     const message =
       error.response?.data?.message || "An unexpected error occurred";
@@ -27,29 +17,18 @@ export const getCollections = async (): Promise<CollectionResponse> => {
   }
 };
 
-export interface getCollectionByIdParam {
-  collections: Collection[];
-}
-
 export const getCollectionById = async (
   signal: AbortSignal,
   collectionId: number
 ): Promise<Collection> => {
   try {
-    const token = localStorage.getItem("token");
     const lang = localStorage.getItem("lang") ?? "en";
-
-    const response = await axios.get<Collection>(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/collections/${collectionId}?lang=${lang}`,
-      {
-        signal,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+    const response = await tokenIpAxios.get<Collection>(
+      `/collections/${collectionId}?lang=${lang}`,
+      { signal }
     );
     return response.data;
-  } catch (err) {
+  } catch (err: unknown) {
     const error = err as AxiosError<{ message: string }>;
     const message =
       error.response?.data?.message || "An unexpected error occurred";

@@ -1,20 +1,15 @@
-import axios, { AxiosError } from "axios";
+import tokenIpAxios from "./tokenIpAxios";
+import { AxiosError } from "axios";
 import { CategoryResponse } from "../models/categoryModal";
 
 export const getCategories = async (): Promise<CategoryResponse> => {
   try {
-    const token = localStorage.getItem("token");
     const lang = localStorage.getItem("lang") ?? "en";
-    const response = await axios.get<CategoryResponse>(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/categories?lang=${lang}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+    const response = await tokenIpAxios.get<CategoryResponse>(
+      `/categories?lang=${lang}`
     );
     return response.data;
-  } catch (err) {
+  } catch (err: unknown) {
     const error = err as AxiosError<{ message: string }>;
     const message =
       error.response?.data?.message || "An unexpected error occurred";

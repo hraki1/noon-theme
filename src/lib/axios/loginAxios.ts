@@ -1,4 +1,5 @@
-import axios, { AxiosError } from "axios";
+import ipAxios from "./ipAxios";
+import { AxiosError } from "axios";
 import User from "../models/userModel";
 
 export interface loginRequest {
@@ -14,12 +15,12 @@ export interface loginResponse {
 
 export const login = async (data: loginRequest): Promise<loginResponse> => {
   try {
-    const response = await axios.post<loginResponse>(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login`,
+    const response = await ipAxios.post<loginResponse>(
+      "/auth/login",
       data
     );
     return response.data;
-  } catch (err) {
+  } catch (err: unknown) {
     const error = err as AxiosError<{ message?: string }>;
 
     if (error.response?.status === 401) {

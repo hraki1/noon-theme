@@ -227,7 +227,8 @@
     },
     "errors": {
       "stripeFailed": "Stripe payment failed."
-    }
+    },
+    "loading": "Loading..."
   },
   "orderSuccess": {
     "title": "Order Confirmed!",

@@ -1,4 +1,5 @@
-import axios, { AxiosError } from "axios";
+import tokenIpAxios from "./tokenIpAxios";
+import { AxiosError } from "axios";
 
 export interface City {
   id: number;
@@ -47,18 +48,12 @@ export interface AddressResponse {
 
 export const getAddresses = async (): Promise<AddressResponse[]> => {
   try {
-    const token = localStorage.getItem("token");
-    const response = await axios.get<AddressResponse[]>(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/addresses`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+    const response = await tokenIpAxios.get<AddressResponse[]>(
+      "/addresses"
     );
     console.log(response.data);
     return response.data;
-  } catch (err) {
+  } catch (err: unknown) {
     const error = err as AxiosError<{ message: string }>;
     const message =
       error.response?.data?.message || "An unexpected error occurred";
@@ -80,20 +75,14 @@ export const addAddress = async (
   newAddress: AddAddressRequest
 ): Promise<AddressResponse> => {
   try {
-    const token = localStorage.getItem("token");
-    const response = await axios.post<AddressResponse>(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/addresses`,
+    const response = await tokenIpAxios.post<AddressResponse>(
+      "/addresses",
       {
         ...newAddress,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       }
     );
     return response.data;
-  } catch (err) {
+  } catch (err: unknown) {
     const error = err as AxiosError<{ message: string }>;
     const message =
       error.response?.data?.message || "An unexpected error occurred";
@@ -114,20 +103,14 @@ export const updateAddress = async (
   addressId: number
 ): Promise<AddressResponse> => {
   try {
-    const token = localStorage.getItem("token");
-    const response = await axios.put<AddressResponse>(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/addresses/${addressId}`,
+    const response = await tokenIpAxios.put<AddressResponse>(
+      `/addresses/${addressId}`,
       {
         ...newAddress,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       }
     );
     return response.data;
-  } catch (err) {
+  } catch (err: unknown) {
     const error = err as AxiosError<{ message: string }>;
     const message =
       error.response?.data?.message || "An unexpected error occurred";
@@ -137,17 +120,11 @@ export const updateAddress = async (
 
 export const deleteAddress = async (addressId: number): Promise<string> => {
   try {
-    const token = localStorage.getItem("token");
-    const response = await axios.delete<string>(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/addresses/${addressId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+    const response = await tokenIpAxios.delete<string>(
+      `/addresses/${addressId}`
     );
     return response.data;
-  } catch (err) {
+  } catch (err: unknown) {
     const error = err as AxiosError<{ message: string }>;
     const message =
       error.response?.data?.message || "An unexpected error occurred";

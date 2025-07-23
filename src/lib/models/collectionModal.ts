@@ -60,3 +60,7 @@ export interface Collection {
   translations: CollectionTranslation[];
   products: ProductCollection[];
 }
+
+export interface CollectionResponse {
+  collections: Collection[];
+}

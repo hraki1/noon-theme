@@ -509,7 +509,7 @@ const AddressTap: React.FC<{
             onClick={
               dataReady.addressReady ? handleFinishAddressFiled : () => {}
             }
-            className="w-full bg-indigo-600 text-white py-3 px-4 rounded-md hover:bg-indigo-700 transition font-medium"
+            className="w-full bg-indigo-600 text-white py-3 px-4 rounded-md hover:bg-indigo-700 transition font-medium cursor-pointer"
           >
             {dataReady.addressReady
               ? t("form.continueShipping")

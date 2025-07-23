@@ -227,7 +227,8 @@
     },
     "errors": {
       "stripeFailed": "Échec du paiement Stripe."
-    }
+    },
+    "loading": "Chargement..."
   },
   "orderSuccess": {
     "title": "Commande Confirmée !",

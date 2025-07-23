@@ -1,4 +1,5 @@
-import axios, { AxiosError } from "axios";
+import ipAxios from "./ipAxios";
+import { AxiosError } from "axios";
 import User from "../models/userModel";
 
 export interface SignUpRequest {
@@ -12,12 +13,12 @@ export const signUp = async (data: SignUpRequest): Promise<User> => {
   console.log(data);
 
   try {
-    const response = await axios.post<User>(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/register`,
+    const response = await ipAxios.post<User>(
+      "/auth/register",
       data
     );
     return response.data;
-  } catch (err) {
+  } catch (err: unknown) {
     const error = err as AxiosError<{ message: string }>;
     const message =
       error.response?.data?.message || "حدث خطأ غير متوقع أثناء التسجيل";

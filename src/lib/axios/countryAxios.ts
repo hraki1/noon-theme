@@ -1,19 +1,14 @@
 import { Country } from "@/models/forntEndCountry";
-import axios, { AxiosError } from "axios";
+import tokenIpAxios from "./tokenIpAxios";
+import { AxiosError } from "axios";
 
 export const getCountries = async (): Promise<Country[]> => {
   try {
-    const token = localStorage.getItem("token");
-    const response = await axios.get<Country[]>(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/shipping-zones/countries-with-cities`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+    const response = await tokenIpAxios.get<Country[]>(
+      "/shipping-zones/countries-with-cities"
     );
     return response.data;
-  } catch (err) {
+  } catch (err: unknown) {
     const error = err as AxiosError<{ message: string }>;
     const message =
       error.response?.data?.message || "An unexpected error occurred";

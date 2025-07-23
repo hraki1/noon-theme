@@ -1,4 +1,5 @@
-import axios, { AxiosError } from "axios";
+import tokenIpAxios from "./tokenIpAxios";
+import { AxiosError } from "axios";
 
 interface OrderPayload {
   cartId: number;
@@ -6,26 +7,18 @@ interface OrderPayload {
 }
 
 export const placeOrder = async (payload: OrderPayload) => {
-  const token = localStorage.getItem("token");
-
-  if (!token) {
-    throw new Error("يجب تسجيل الدخول قبل تنفيذ الطلب.");
-  }
-
   try {
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/orders`,
+    const response = await tokenIpAxios.post(
+      "/orders",
       payload,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       }
     );
-
     return response.data;
-  } catch (err) {
+  } catch (err: unknown) {
     const error = err as AxiosError<{ message: string }>;
     const message =
       error.response?.data?.message || "حدث خطأ غير متوقع أثناء دفع";

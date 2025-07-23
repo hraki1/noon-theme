@@ -6,22 +6,18 @@ export function transformProductCartItem(
 ): FrontEndProductCartItem {
   return {
     id: product.product_id,
-    name: product.description?.name || "Unnamed Product",
-    image:
-      product.images?.find((img) => img.is_main)?.origin_image ||
-      product.images?.[0]?.origin_image ||
-      "/placeholder-product.jpg",
-    url_key: product.description?.url_key || "",
-    price: product.price ?? 0,
+    name: product.description.name,
+    image: product.images?.[0]?.origin_image || "",
+    url_key: product.description.url_key, // Basic slug from SKU
+    price: product.price,
     originalPrice: product.old_price ?? undefined,
-    rating: product.meanRating || 0,
-    tags: [
-      !product.inventory?.stock_availability ? "OUT OF STOCK" : undefined,
-      product.old_price ? "SALE" : undefined,
-    ].filter(Boolean) as string[],
-    short_description: product.description.short_description,
-
+    rating: Math.floor(Math.random() * 6), // Random rating 0-5, you may replace this with real data
+    isNew: product.inventory.stock_availability,
+    tags: [], // Add tags logic if needed
+    description: product.description.short_description,
+    features: [], // Add features logic if needed
+    colors: [], // Add color logic if available
     stock_availability: product.inventory.stock_availability,
-    description: product.description.description,
+    short_description: product.description.short_description,
   };
 }

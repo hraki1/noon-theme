@@ -1,4 +1,5 @@
-import axios, { AxiosError } from "axios";
+import ipAxios from "./ipAxios";
+import { AxiosError } from "axios";
 import { ProductsResponse } from "../models/productsModal";
 
 export interface GetProductsParams {
@@ -20,13 +21,12 @@ export const getProducts = async (
 ): Promise<ProductsResponse> => {
   try {
     const lang = localStorage.getItem("lang") ?? "en";
-
-    const response = await axios.get<ProductsResponse>(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/products?lang=${lang}`,
+    const response = await ipAxios.get<ProductsResponse>(
+      `/products?lang=${lang}`,
       { params, signal }
     );
     return response.data;
-  } catch (err) {
+  } catch (err: unknown) {
     const error = err as AxiosError<{ message: string }>;
     const message =
       error.response?.data?.message || "An unexpected error occurred";
@@ -40,12 +40,12 @@ export const getProductByUrlKey = async (
 ): Promise<ProductsResponse> => {
   try {
     const lang = localStorage.getItem("lang") ?? "en";
-    const response = await axios.get<ProductsResponse>(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/products/by-url/${url_key}?lang=${lang}`,
+    const response = await ipAxios.get<ProductsResponse>(
+      `/products/by-url/${url_key}?lang=${lang}`,
       { signal }
     );
     return response.data;
-  } catch (err) {
+  } catch (err: unknown) {
     const error = err as AxiosError<{ message: string }>;
     const message =
       error.response?.data?.message || "An unexpected error occurred";

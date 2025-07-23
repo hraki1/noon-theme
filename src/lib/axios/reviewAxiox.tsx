@@ -1,24 +1,18 @@
-import axios, { AxiosError } from "axios";
-import { ProductReviewProfile ,ProductReview } from "../models/reviewModal";
+import tokenIpAxios from "./tokenIpAxios";
+import { AxiosError } from "axios";
+import { ProductReviewProfile, ProductReview } from "../models/reviewModal";
 
 export const getReviewsForProduct = async (
   productId: number,
   signal?: AbortSignal
 ): Promise<ProductReviewProfile[]> => {
-  const token = localStorage.getItem("token");
-
   try {
-    const response = await axios.get<ProductReviewProfile[]>(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/reviews/product/${productId}/customer`,
-      {
-        signal,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+    const response = await tokenIpAxios.get<ProductReviewProfile[]>(
+      `/reviews/product/${productId}/customer`,
+      { signal }
     );
     return response.data;
-  } catch (err) {
+  } catch (err: unknown) {
     const error = err as AxiosError<{ message: string }>;
     const message =
       error.response?.data?.message || "An unexpected error occurred";
@@ -36,20 +30,14 @@ export const addReview = async (
   newReview: AddReviweRequest
 ): Promise<ProductReview> => {
   try {
-    const token = localStorage.getItem("token");
-    const response = await axios.post<ProductReview>(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/reviews`,
+    const response = await tokenIpAxios.post<ProductReview>(
+      "/reviews",
       {
         ...newReview,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       }
     );
     return response.data;
-  } catch (err) {
+  } catch (err: unknown) {
     const error = err as AxiosError<{ message: string }>;
     const message =
       error.response?.data?.message || "An unexpected error occurred";
@@ -61,20 +49,13 @@ export const getReviewsForProductById = async (
   productId: number,
   signal?: AbortSignal
 ): Promise<ProductReview[]> => {
-  const token = localStorage.getItem("token");
-
   try {
-    const response = await axios.get<ProductReview[]>(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/reviews/product/${productId}`,
-      {
-        signal,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+    const response = await tokenIpAxios.get<ProductReview[]>(
+      `/reviews/product/${productId}`,
+      { signal }
     );
     return response.data;
-  } catch (err) {
+  } catch (err: unknown) {
     const error = err as AxiosError<{ message: string }>;
     const message =
       error.response?.data?.message || "An unexpected error occurred";

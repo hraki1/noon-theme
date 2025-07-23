@@ -1,4 +1,5 @@
-import axios, { AxiosError } from "axios";
+import ipAxios from "./ipAxios";
+import { AxiosError } from "axios";
 import { Product } from "../models/productsModal";
 
 interface searchProductsResponse {
@@ -18,12 +19,12 @@ export const getSearchProducts = async (
 ): Promise<searchProductsResponse> => {
   try {
     const lang = localStorage.getItem("lang") ?? "en";
-    const response = await axios.get<searchProductsResponse>(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/products/search?lang=${lang}`,
+    const response = await ipAxios.get<searchProductsResponse>(
+      `/products/search?lang=${lang}`,
       { params, signal }
     );
     return response.data;
-  } catch (err) {
+  } catch (err: unknown) {
     const error = err as AxiosError<{ message: string }>;
     const message =
       error.response?.data?.message || "An unexpected error occurred";

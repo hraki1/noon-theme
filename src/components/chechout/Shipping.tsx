@@ -121,14 +121,14 @@ const Shipping: React.FC<{
         </div>
 
         <div className="flex justify-between pt-4">
-          <button className="text-indigo-600 hover:text-indigo-500 font-medium">
+          <button className="text-indigo-600 hover:text-indigo-500 font-medium cursor-pointer">
             {t("back")}
           </button>
           <motion.button
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.99 }}
             onClick={handleFinishSelectDelevary}
-            className="bg-indigo-600 text-white py-3 px-6 rounded-md hover:bg-indigo-700 transition font-medium"
+            className="bg-indigo-600 text-white py-3 px-6 rounded-md hover:bg-indigo-700 transition font-medium cursor-pointer"
           >
             {t("continue")}
           </motion.button>

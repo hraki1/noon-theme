@@ -1,19 +1,14 @@
-import axios, { AxiosError } from "axios";
+import tokenIpAxios from "./tokenIpAxios";
+import { AxiosError } from "axios";
 import { BrandsResponse} from "../models/brandsModal";
 
 export const getBrands = async (): Promise<BrandsResponse> => {
   try {
-    const token = localStorage.getItem("token");
-    const response = await axios.get<BrandsResponse>(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/brands`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+    const response = await tokenIpAxios.get<BrandsResponse>(
+      "/brands"
     );
     return response.data;
-  } catch (err) {
+  } catch (err: unknown) {
     const error = err as AxiosError<{ message: string }>;
     const message =
       error.response?.data?.message || "An unexpected error occurred";

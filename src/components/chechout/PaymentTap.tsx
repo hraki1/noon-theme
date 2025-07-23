@@ -18,7 +18,7 @@ const PaymentTap: React.FC = () => {
   >("stripe");
 
   console.log(paymentMethod);
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: () =>
       placeOrder({
         cartId: summaryCart.cart_id,
@@ -135,9 +135,10 @@ const PaymentTap: React.FC = () => {
           onClick={handlePlaceOrder}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="bg-indigo-600 text-white py-3 px-6 rounded-md hover:bg-indigo-700 transition font-medium"
+          className="bg-indigo-600 text-white py-3 px-6 rounded-md hover:bg-indigo-700 transition font-medium cursor-pointer"
+          disabled={isPending}
         >
-          {t("navigation.complete")}
+          {isPending ? t("loading") : t("navigation.complete")}
         </motion.button>
       </div>
     </motion.div>

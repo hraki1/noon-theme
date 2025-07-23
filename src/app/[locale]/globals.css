@@ -5,13 +5,12 @@
   --foreground: #171717;
 }
 
-html{
+html {
   background-color: #feee00;
 }
 
 body {
-  font-family: var(--font-nunito), 'Nunito', 'Helvetica Neue', Arial, sans-serif;
-
+  font-family: var(--font-nunito), "Nunito", "Helvetica Neue", Arial, sans-serif;
 }
 
 input:focus {
@@ -115,10 +114,20 @@ html {
   scrollbar-width: thin;
 }
 
+button {
+  cursor: pointer;
+}
+
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: none; }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 .animate-fadeIn {
-  animation: fadeIn 0.7s cubic-bezier(0.4,0,0.2,1) forwards;
+  animation: fadeIn 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
