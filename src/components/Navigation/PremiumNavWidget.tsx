@@ -16,6 +16,7 @@ import { useCategories } from "@/store/CategoriesContext";
 import { useBrands } from "@/store/BrandsContext";
 import { Category } from "@/lib/models/categoryModal";
 import { BrandWithProducts } from "@/lib/models/brandsModal";
+import type { Language as LanguageType } from "@/lib/models/languagesModal";
 
 
 interface Group {
@@ -24,7 +25,11 @@ interface Group {
   ids: number[];
 }
 
-export default function PremiumNavWidget() {
+interface PremiumNavWidgetProps {
+  languages: LanguageType[];
+}
+
+export default function PremiumNavWidget({ languages }: PremiumNavWidgetProps) {
   const t = useTranslations("navbar");
   const { isAuthenticated, user } = useContext(AuthContext);
   const { openAuthModal } = useContext(AuthModalContext);
@@ -247,7 +252,7 @@ export default function PremiumNavWidget() {
                   <CurrencySelector />
                 </li>
                 <li className="px-8 py-5 text-[18px] ">
-                  <Language />
+                <Language languages={languages} />
                 </li>
                 <li className="px-8 py-5 text-[18px] flex">
                   <Link
