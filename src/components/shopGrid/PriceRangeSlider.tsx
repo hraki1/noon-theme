@@ -69,18 +69,18 @@ const PriceRangeSlider = ({
             <div
               className="absolute h-2 bg-blue-500 rounded-full"
               style={{
-                left: `${(priceRange[0] / MAX_PRICE) * 100}%`,
-                right: `${100 - (priceRange[1] / MAX_PRICE) * 100}%`,
+                left: `${(Math.min(priceRange[0], MAX_PRICE) / MAX_PRICE) * 100}%`,
+                right: `${100 - (Math.min(priceRange[1], MAX_PRICE) / MAX_PRICE) * 100}%`,
               }}
             />
             <div
               className="absolute h-4 w-4 bg-blue-600 rounded-full -top-1 transform -translate-x-1/2 cursor-pointer shadow-md hover:bg-blue-700 transition-colors"
-              style={{ left: `${(priceRange[0] / MAX_PRICE) * 100}%` }}
+              style={{ left: `${(Math.min(priceRange[0], MAX_PRICE) / MAX_PRICE) * 100}%` }}
               onMouseDown={() => handleMouseDown("min")}
             />
             <div
               className="absolute h-4 w-4 bg-blue-600 rounded-full -top-1 transform -translate-x-1/2 cursor-pointer shadow-md hover:bg-blue-700 transition-colors"
-              style={{ left: `${(priceRange[1] / MAX_PRICE) * 100}%` }}
+              style={{ left: `${(Math.min(priceRange[1], MAX_PRICE) / MAX_PRICE) * 100}%` }}
               onMouseDown={() => handleMouseDown("max")}
             />
           </div>

@@ -72,7 +72,8 @@
       "sentTo": "We sent OTP to:",
       "placeholder": "Enter 6-digit code to verify your account",
       "submit": "Verify",
-      "pending": "Verifying..."
+      "pending": "Verifying...",
+      "resend": "Resend OTP"
     },
     "forgotPassword": {
       "title": "Forgot Password",
@@ -713,7 +714,7 @@
       "sale": "SALE"
     },
     "quickShop": "Quick Shop",
-    "outOfStock": "Out of Stock",
+    "outOfStock": "Sold Out",
     "addToCart": "Add to Cart",
     "viewDetails": "View Details",
     "ariaLabels": {

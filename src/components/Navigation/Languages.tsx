@@ -3,20 +3,17 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiChevronDown } from "react-icons/fi";
-import { useQuery } from "@tanstack/react-query";
+import type { Language } from "@/lib/models/languagesModal";
 import { usePathname, useRouter } from "next/navigation";
-import { getLanguages } from "@/lib/axios/languagesAxios";
 import { useLocale } from "next-intl";
-import Spinner from "../UI/SpinnerLoading";
 
-export default function Language() {
+type LanguageProps = {
+  languages: Language[];
+};
+
+export default function Language({ languages }: LanguageProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["languages"],
-    queryFn: getLanguages,
-  });
 
   const router = useRouter();
   const pathname = usePathname();
@@ -28,7 +25,7 @@ export default function Language() {
   const currentLocale = pathname?.split("/")[1] || "en";
 
   // Find the current language name for display
-  const currentLanguage = data?.data.find(
+  const currentLanguage = languages.find(
     (lang) => lang.languageCode === currentLocale
   );
 
@@ -48,7 +45,6 @@ export default function Language() {
 
   const handleSelectLanguage = (langCode: string) => {
     setIsOpen(false);
-
     // Replace locale segment with new langCode
     const segments = pathname?.split("/") || [];
     if (segments.length > 1) {
@@ -62,18 +58,12 @@ export default function Language() {
     router.push(newPathname);
   };
 
-  if (isLoading) return <div className="my-40 mt-56"><Spinner /></div>;
-
-  if (error) {
-    return <p className="py-10">{(error as Error).message}</p>;
-  }
-
   return (
     <div className="relative inline-block text-left" ref={dropdownRef}>
       <motion.button
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
-        className={`flex items-center gap-2 py-1  rounded-md focus:outline-none`}
+        className={`flex items-center gap-2 py-1 rounded-md focus:outline-none`}
         aria-label="Select language"
         aria-haspopup="true"
         aria-expanded={isOpen}
@@ -103,20 +93,24 @@ export default function Language() {
             className={`absolute  ${isRTL ? "md:left-0" : "md:right-0"
               } mt-2 w-full min-w-[120px] bg-white rounded-md shadow-lg border border-gray-200 overflow-hidden z-50`}
           >
-            {data?.data.map((lang) => (
-              <motion.button
-                key={lang.languageCode}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => handleSelectLanguage(lang.languageCode)}
-                className={`w-full text-left px-4 py-2 hover:bg-gray-100 ${currentLocale === lang.languageCode
-                  ? "bg-gray-100 font-semibold"
-                  : ""
-                  }`}
-                role="menuitem"
-              >
-                {lang.languageName}
-              </motion.button>
-            ))}
+            {languages.length ? (
+              languages.map((lang) => (
+                <motion.button
+                  key={lang.languageCode}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => handleSelectLanguage(lang.languageCode)}
+                  className={`w-full text-left px-4 py-2 hover:bg-gray-100 ${currentLocale === lang.languageCode
+                    ? "bg-gray-100 font-semibold"
+                    : ""
+                    }`}
+                  role="menuitem"
+                >
+                  {lang.languageName}
+                </motion.button>
+              ))
+            ) : (
+              <div className="px-4 py-2 text-gray-500 text-center">No languages available</div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

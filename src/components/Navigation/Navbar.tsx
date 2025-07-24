@@ -9,12 +9,17 @@ import { useContext } from "react";
 import { AuthContext } from "@/store/AuthContext";
 import Link from "next/link";
 import Language from "./Languages";
+import type { Language as LanguageType } from "@/lib/models/languagesModal";
 import { FaRegHeart } from "react-icons/fa";
 import { motion } from "framer-motion";
 import CurrencySelector from "./CurrencySelector";
 import CategoriesBar from "./CategoriesBar";
 
-export default function Navbar() {
+type NavbarProps = {
+  languages: LanguageType[];
+};
+
+export default function Navbar({ languages }: NavbarProps) {
   const { isAuthenticated } = useContext(AuthContext);
 
   return (
@@ -50,7 +55,7 @@ export default function Navbar() {
             {/* Right - Actions */}
             <div className="flex items-center gap-1 md:gap-3">
               <div className="hidden md:block">
-                <Language />
+                <Language languages={languages} />
               </div>
               <div className="hidden md:block">
                 <CurrencySelector />

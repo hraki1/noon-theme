@@ -24,6 +24,7 @@ import CurrencyProvider from "@/store/CurrencyContext";
 import { CategoriesProvider } from "@/store/CategoriesContext";
 import { BrandsProvider } from "@/store/BrandsContext";
 import ClientLayoutPart from "./ClientLayoutPart";
+import { Language } from "@/lib/models/languagesModal";
 
 const dosis = Dosis({
   variable: "--font-dosis",
@@ -45,6 +46,15 @@ async function getSettings(locale: string) {
   );
   if (!res.ok) return null;
   return res.json();
+}
+
+async function getLanguagesSSR(): Promise<Language[]> {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/languages`, {
+    next: { revalidate: 604800 }, // أسبوع كامل
+  });
+  if (!res.ok) return [];
+  const data = await res.json();
+  return data.data || [];
 }
 
 function isValidCurrency(value: unknown): value is string {
@@ -80,6 +90,8 @@ export default async function RootLayout({
     ? userCurrencyRaw
     : baseSystemCurrency;
 
+  const languages = await getLanguagesSSR();
+
   return (
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
       <body className={`${dosis.variable} ${nunito.variable} antialiased`}>
@@ -100,7 +112,7 @@ export default async function RootLayout({
                             <Toaster />
                             <div id="root-modal"></div>
                             <ClientLayoutPart />
-                            <Navbar />
+                            <Navbar languages={languages} />
                             {children}
                             <Footer />
                           </BrandsProvider>

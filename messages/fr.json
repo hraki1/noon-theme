@@ -72,7 +72,8 @@
       "sentTo": "Nous avons envoyé le code OTP à :",
       "placeholder": "Entrez le code à 6 chiffres pour vérifier votre compte",
       "submit": "Vérifier",
-      "pending": "Vérification en cours..."
+      "pending": "Vérification en cours...",
+      "resend": "Renvoyer le code OTP"
     },
     "forgotPassword": {
       "title": "Mot de Passe Oublié",
@@ -712,7 +713,7 @@
       "sale": "SOLDES"
     },
     "quickShop": "Achat Rapide",
-    "outOfStock": "En Rupture de Stock",
+    "outOfStock": "Épuisé",
     "addToCart": "Ajouter au Panier",
     "viewDetails": "Voir les Détails",
     "ariaLabels": {

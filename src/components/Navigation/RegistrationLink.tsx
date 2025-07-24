@@ -595,16 +595,18 @@ export default function RegistrationLink() {
 
                 <div className="flex flex-row gap-3 justify-center">
                   <button
-                    className={`px-2 py-1 rounded-lg text-sm transition-colors ${countdown > 0 || isPendingResendOtp
-                      ? "bg-gray-400 text-gray-300 cursor-not-allowed"
-                      : "bg-gray-500 text-white hover:bg-gray-600 cursor-pointer"
-                      }`}
+                    className={`px-2 py-1 rounded-lg text-sm font-medium border transition-colors ${
+                      countdown > 0 || isPendingResendOtp
+                        ? "bg-gray-200 text-gray-500 border-gray-300 cursor-not-allowed opacity-80"
+                        : "bg-blue-600 text-white border-blue-600 hover:bg-blue-700"
+                    }`}
                     disabled={countdown > 0 || isPendingResendOtp}
                     onClick={handleResendOtp}
                   >
-                    Resend Password
+                    {countdown > 0
+                      ? `${t("otp.resend")} (${countdown}s)`
+                      : t("otp.resend")}
                   </button>
-                  {countdown === 0 && <p>{countdown}</p>}
                 </div>
 
                 <button

@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useBrands } from "@/store/BrandsContext";
-import Spinner from "@/components/UI/SpinnerLoading";
 import Image from "next/image";
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "next/navigation";
@@ -12,7 +11,7 @@ const BrandsSection: React.FC = () => {
   const t = useTranslations("brandsSection");
   const locale = useLocale();
   const router = useRouter();
-  const { brands, isLoading, error, refetch } = useBrands();
+  const { brands, error, refetch } = useBrands();
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -46,13 +45,6 @@ const BrandsSection: React.FC = () => {
     router.push(`/${locale}/shopGrid?brandid=${brandId}`);
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center py-10">
-        <Spinner />
-      </div>
-    );
-  }
 
   if (error) {
     return (

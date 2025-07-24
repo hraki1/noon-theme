@@ -75,7 +75,8 @@
       "pending": "... تأكيد",
       "errors": {
         "emptyOTP": "OTP يرجى تعبئة"
-      }
+      },
+      "resend": "إعادة إرسال رمز التحقق"
     },
     "forgotPassword": {
       "title": "نسيان كلمة المرور",
