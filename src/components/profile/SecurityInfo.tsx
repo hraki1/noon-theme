@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
 import Modal from "../UI/Modal";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { restPasswordRequest } from "@/lib/axios/resetPasswordAxios";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useTranslations } from "next-intl";
+import { AuthContext } from "@/store/AuthContext";
 
 const SecurityInfo = () => {
   const t = useTranslations("account.security.modal");
@@ -14,9 +15,12 @@ const SecurityInfo = () => {
   const [successResetPasswordRequest, setSuccessResetPasswordRequest] =
     useState<string | null>(null);
 
+  const { user } = useContext(AuthContext)
+
   const [formInput, setFormInput] = useState({
-    email: "",
+    email: user?.email || "",
   });
+  const [formError, setFormError] = useState<string | null>(null);
 
   const {
     mutate: mutateRequestResetPassword,
@@ -25,11 +29,14 @@ const SecurityInfo = () => {
     mutationFn: restPasswordRequest,
     onSuccess: (data) => {
       setSuccessResetPasswordRequest(data.message);
+      setFormError(null);
+      toast.success(data.message);
       console.log("تم ارسال otp", data);
     },
     onError: (error: Error) => {
-      console.log("خطأ أثناء rest password:", error.message);
+      setFormError(error.message);
       toast.error(error.message);
+      console.log("خطأ أثناء rest password:", error.message);
     },
   });
 
@@ -39,17 +46,25 @@ const SecurityInfo = () => {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
+    setFormError(null);
   };
 
   function handleForgetPassword() {
-    console.log(formInput.email);
-    mutateRequestResetPassword({ email: formInput.email });
+    // Basic email validation
+    const email = formInput.email || "";
+    if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      setFormError(t("invalidEmail"));
+      return;
+    }
+    setFormError(null);
+    mutateRequestResetPassword({ email });
   }
 
   function toggleOpenCloseModal() {
     setIsOpenModal((prev) => !prev);
     setSuccessResetPasswordRequest(null);
-    setFormInput({ email: "" });
+    setFormInput({ email: user?.email || "" });
+    setFormError(null);
   }
 
   return (
@@ -104,18 +119,26 @@ const SecurityInfo = () => {
                     type="string"
                     onChange={handleInputChange}
                     value={formInput.email}
-                    className={`w-full p-2 rounded bg-slate-700 text-center border border-slate-600 focus:ring-blue-500 focus:outline-none focus:ring-2`}
+                    className={`w-full p-2 rounded bg-slate-700 text-center border border-slate-600 focus:ring-blue-500 focus:outline-none focus:ring-2 ${formError ? "border-red-500" : ""}`}
                     placeholder={t("emailPlaceholder")}
                   />
+                  {formError && (
+                    <div className="text-red-500 text-sm mt-2">{formError}</div>
+                  )}
                 </div>
 
                 <button
                   disabled={isPendingResetPassword}
                   type="button"
                   onClick={handleForgetPassword}
-                  className="w-full bg-blue-600 hover:bg-blue-700 transition-colors py-2 rounded text-white cursor-pointer"
+                  className={`w-full bg-blue-600 hover:bg-blue-700 transition-colors py-2 rounded text-white cursor-pointer flex items-center justify-center ${isPendingResetPassword ? "opacity-70" : ""}`}
                 >
-                  {isPendingResetPassword ? t("sending") : t("send")}
+                  {isPendingResetPassword ? (
+                    <>
+                      <svg className="animate-spin h-5 w-5 mr-2 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
+                      {t("sending")}
+                    </>
+                  ) : t("send")}
                 </button>
               </div>
             </div>
