@@ -34,7 +34,7 @@ export default function Navbar({ languages }: NavbarProps) {
             {/* Left - Logo */}
             <div className="flex items-center gap-1 md:gap-4">
               <div className="flex items-center md:hidden">
-                <PremiumNavWidget />
+                <PremiumNavWidget languages={languages} />
               </div>
               <Link href={"/"} className="flex items-center z-10">
                 <motion.div

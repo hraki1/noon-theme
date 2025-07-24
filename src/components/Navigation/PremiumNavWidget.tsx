@@ -93,8 +93,6 @@ export default function PremiumNavWidget({ languages }: PremiumNavWidgetProps) {
         <div className="flex flex-col gap-1.5 items-center relative w-6 h-6">
           {/* Hamburger lines */}
           <MdMenu className="text-3xl text-black " />
-
-
           {/* Cross lines */}
           <motion.span
             className="absolute bg-gray-800 rounded h-1 w-6 top-1/2 left-0 origin-center"
